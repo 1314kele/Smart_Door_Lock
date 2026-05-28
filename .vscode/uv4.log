@@ -1,0 +1,11 @@
+Build target 'template'
+linking...
+.\template.axf: Error: L6218E: Undefined symbol SPI_Cmd (referred from rc522.o).
+.\template.axf: Error: L6218E: Undefined symbol SPI_I2S_GetFlagStatus (referred from rc522.o).
+.\template.axf: Error: L6218E: Undefined symbol SPI_I2S_ReceiveData (referred from rc522.o).
+.\template.axf: Error: L6218E: Undefined symbol SPI_I2S_SendData (referred from rc522.o).
+.\template.axf: Error: L6218E: Undefined symbol SPI_Init (referred from rc522.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 5 error messages.
+".\template.axf" - 5 Error(s), 0 Warning(s).
+Target not created.
