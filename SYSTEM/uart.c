@@ -88,13 +88,12 @@ void uart2_init(uint32_t baudrate)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_3;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_USART2);
@@ -106,12 +105,6 @@ void uart2_init(uint32_t baudrate)
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	USART_Init(USART2, &USART_InitStructure);
-	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
-	NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x8;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x2;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
 	USART_Cmd(USART2, ENABLE);
 }
 
@@ -121,10 +114,49 @@ void uart2_putc(char ch) {
 }
 void uart2_puts(const char *s) { while(*s) uart2_putc(*s++); }
 
+uint8_t uart2_test_loopback(void) {
+    uint8_t test_data[] = "UART2 Test";
+    uint8_t received[32] = {0};
+    uint16_t i, timeout;
+    
+    printf("[UART2] Testing TX...\r\n");
+    uart2_puts((const char*)test_data);
+    
+    printf("[UART2] Testing RX (loopback required)...\r\n");
+    for(i = 0; i < sizeof(test_data)-1; i++) {
+        timeout = 0;
+        while(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == RESET) {
+            if(timeout++ > 100000) {
+                printf("[UART2] RX timeout!\r\n");
+                return 0;
+            }
+        }
+        received[i] = USART_ReceiveData(USART2);
+    }
+    
+    printf("[UART2] Sent: %s\r\n", test_data);
+    printf("[UART2] Received: %s\r\n", received);
+    
+    if(memcmp(test_data, received, sizeof(test_data)-1) == 0) {
+        printf("[UART2] Loopback test PASSED!\r\n");
+        return 1;
+    } else {
+        printf("[UART2] Loopback test FAILED!\r\n");
+        return 0;
+    }
+}
+
+void uart3_putc(char ch) {
+	while(USART_GetFlagStatus(USART3, USART_FLAG_TXE) != SET);
+	USART_SendData(USART3, ch);
+}
+void uart3_puts(const char *s) { while(*s) uart3_putc(*s++); }
+
 void uart3_init(uint32_t baudrate)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
@@ -142,6 +174,12 @@ void uart3_init(uint32_t baudrate)
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	USART_Init(USART3, &USART_InitStructure);
+	USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
+	NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x8;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x2;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
 	USART_Cmd(USART3, ENABLE);
 }
 
@@ -179,16 +217,16 @@ void parse_cmd(void)
 		}
 		else if(strstr((const char *)uart_buf,"at ")){
 			char *p = (char *)uart_buf + 3;
-			while(*p && *p != '*') { uart2_putc(*p); p++; }
-			uart2_putc('\r'); uart2_putc('\n');
+			while(*p && *p != '*') { uart3_putc(*p); p++; }
+			uart3_putc('\r'); uart3_putc('\n');
 		}
 		else if(strstr((const char *)uart_buf,"wifi_test")){
 			printf("WiFi test: sending AT...\r\n");
-			uart2_puts("+++");
+			uart3_puts("+++");
 			vTaskDelay(pdMS_TO_TICKS(2000));
-			uart2_puts("AT\r\n");
+			uart3_puts("AT\r\n");
 			vTaskDelay(pdMS_TO_TICKS(2000));
-			printf("WiFi test done. Check [WiFi] output.\r\n");
+			printf("WiFi test done.\r\n");
 		}
 		else if(strstr((const char *)uart_buf,"wifi")){
 			wifi_auto_connect();
@@ -196,6 +234,11 @@ void parse_cmd(void)
 		else if(strstr((const char *)uart_buf,"finger")){
 			printf("Testing fingerprint module...\n");
 			as608_handshake();
+		}
+		else if(strstr((const char *)uart_buf,"uart2_echo")){
+			printf("[UART2] Testing echo...\r\n");
+			uart2_puts("Hello from UART2!\r\n");
+			printf("[UART2] Echo test done.\r\n");
 		}
 		else if(strstr((const char *)uart_buf,"save_card")){
 			extern uint32_t last_card_uid;
@@ -250,15 +293,21 @@ void USART1_IRQHandler(void)
 	taskEXIT_CRITICAL_FROM_ISR(ulReturn);
 }
 
-void USART2_IRQHandler(void)
+void USART3_IRQHandler(void)
 {
-	if(USART_GetITStatus(USART2, USART_IT_RXNE) == SET){
-		bl_buf[bl_len++] = USART_ReceiveData(USART2);
-		if(bl_buf[bl_len-1] == '*' || bl_len >= sizeof(bl_buf)-1){
-			bl_flag = 1;
+	uint32_t ulReturn;
+	ulReturn = taskENTER_CRITICAL_FROM_ISR();
+	if(USART_GetITStatus(USART3, USART_IT_RXNE) == SET){
+		uint8_t ch = USART_ReceiveData(USART3);
+		if(bl_len < sizeof(bl_buf) - 1) {
+			bl_buf[bl_len++] = ch;
+			if(ch == '*' || ch == '\r' || ch == '\n' || bl_len >= sizeof(bl_buf) - 2) {
+				bl_flag = 1;
+			}
 		}
-		USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+		USART_ClearITPendingBit(USART3, USART_IT_RXNE);
 	}
+	taskEXIT_CRITICAL_FROM_ISR(ulReturn);
 }
 
 static int32_t wifi_find_str(char *str, uint32_t timeout_ms)
@@ -276,7 +325,7 @@ static void wifi_send_at(char *str)
 	memset((char *)bl_buf, 0, sizeof(bl_buf));
 	bl_len = 0;
 	bl_flag = 0;
-	uart2_puts(str);
+	uart3_puts(str);
 }
 
 void wifi_auto_connect(void)
@@ -313,18 +362,38 @@ void wifi_auto_connect(void)
 void parse_bl_cmd(void)
 {
 	if(bl_flag){
-		printf("[WiFi] %s\r\n", bl_buf);
-		if(strstr((const char *)bl_buf,"unlock")){
-			printf("WiFi Unlock!\r\n");
-			D1 = 0;
-			{ uint32_t cmd = 4; xQueueSend(msgQueue, &cmd, 10); }
+		char buf_copy[64];
+		char *start;
+		uint32_t i;
+
+		for(i = 0; i < bl_len && i < 63; i++) {
+			buf_copy[i] = bl_buf[i];
 		}
-		else if(strstr((const char *)bl_buf,"lock")){
-			printf("WiFi Lock!\r\n");
-			D1 = 1;
-		}
+		buf_copy[i] = '\0';
+
 		memset((char *)bl_buf, 0, sizeof(bl_buf));
 		bl_len = 0;
 		bl_flag = 0;
+
+		printf("[WiFi] %s\r\n", buf_copy);
+
+		start = buf_copy;
+		for(i = 0; i < 64 && buf_copy[i] != '\0'; i++) {
+			if(buf_copy[i] == '*' || buf_copy[i] == '\r' || buf_copy[i] == '\n') {
+				buf_copy[i] = '\0';
+				if(start[0] != '\0') {
+					if(strstr(start, "unlock")){
+						printf("WiFi Unlock!\r\n");
+						D1 = 0;
+						{ uint32_t cmd = 4; xQueueSend(msgQueue, &cmd, 10); }
+					}
+					else if(strstr(start, "lock")){
+						printf("WiFi Lock!\r\n");
+						D1 = 1;
+					}
+				}
+				start = buf_copy + i + 1;
+			}
+		}
 	}
 }

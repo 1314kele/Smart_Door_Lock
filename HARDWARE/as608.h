@@ -2,6 +2,8 @@
 #define __AS608_H
 #include "stm32f4xx.h"
 
+extern uint8_t fingerprint_enrolling;
+
 void as608_init(void);
 uint8_t as608_handshake(void);
 uint8_t as608_search_finger(uint16_t *finger_id);

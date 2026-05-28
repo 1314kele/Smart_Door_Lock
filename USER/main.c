@@ -65,8 +65,8 @@ int main()
     
     // ��ʼ�����ڣ�����/���ԣ�
     uart1_init(115200); // 串口控制台
-    uart2_init(115200);  // WiFi模块
-    uart3_init(57600);   // 指纹模块
+    uart2_init(57600);   // 指纹模块 (AS608波特率-商家资料)
+    uart3_init(115200);  // WiFi模块
     
     printf("Smart Door Lock System Start!\n");
     printf("RC522 Version: 0x%02X\r\n", rc522_ver);
@@ -129,17 +129,15 @@ void app_task_init(void* pvParameters)
 void vFingerTask(void* pvParameters)
 {
     uint16_t finger_id = 0;
-    uint32_t cmd = 1; // 1����ָ�ƿ����ɹ�����
+    uint32_t cmd = 1;
     for(;;)
     {
-        // ʵʱ�ɼ�ָ�� -> ģ��1:N�ȶ�
         if (as608_search_finger(&finger_id)) {
-            // ƥ��ɹ� -> �� "����" �ź�
             printf("Finger Unlock! ID: %d\r\n", finger_id);
             xQueueSend(msgQueue, &cmd, 10);
-            D1 = 0; // ����LED����
-            delay_ms(2000); // ��װ����2��
-            D1 = 1; // ����
+            D1 = 0;
+            delay_ms(2000);
+            D1 = 1;
         }
         vTaskDelay(pdMS_TO_TICKS(500));
     }
