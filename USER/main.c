@@ -39,6 +39,7 @@ volatile uint8_t keyboard_mode_active = 0;
 volatile uint8_t current_mode = 0;
 volatile uint8_t unlock_executing = 0;
 volatile uint8_t manage_mode_active = 0;
+volatile uint8_t manage_submenu_active = 0; // 是否进入了管理子菜单
 
 typedef enum {
     MODE_FINGER = 0,
@@ -134,6 +135,7 @@ void manage_mode_enable(void) {
 
 void manage_mode_disable(void) {
     manage_mode_active = 0;
+    manage_submenu_active = 0; // 同时清除子菜单标志
     if(finger_task_handle) vTaskResume(finger_task_handle);
     if(pwd_task_handle) vTaskResume(pwd_task_handle);
     if(rfid_task_handle) vTaskResume(rfid_task_handle);
@@ -249,6 +251,16 @@ void vKeyMenuTask(void* pvParameters)
             // 如果解锁任务正在进行中，忽略按键
             if(unlock_in_progress) {
                 continue;
+            }
+            
+            // 如果已经进入管理子菜单，忽略按键（让vManageTask处理）
+            if(manage_submenu_active) {
+                continue;
+            }
+            
+            // 如果从管理子菜单返回，重置菜单状态
+            if(menu_state >= MENU_MANAGE_FINGER) {
+                menu_state = MENU_MANAGE;
             }
             
             key_feedback();
@@ -410,6 +422,12 @@ void vKeyMenuTask(void* pvParameters)
                     if(key == '1') {
                         menu_state = MENU_MANAGE_FINGER;
                         selected_item = 0;
+                        manage_submenu_active = 1; // 进入管理子菜单
+                        // 发送初始化命令告诉vManageTask当前是指纹管理
+                        key = '@'; // 特殊标记，表示初始化
+                        xQueueSend(manageQueue, &key, portMAX_DELAY);
+                        key = '1';
+                        xQueueSend(manageQueue, &key, portMAX_DELAY);
                         if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                             oled_clear();
                             oled_show_string(0, 0, "Finger Manage:");
@@ -422,6 +440,12 @@ void vKeyMenuTask(void* pvParameters)
                         menu_state = MENU_MANAGE_PWD;
                         selected_item = 0;
                         max_items = flash_get_password_count();
+                        manage_submenu_active = 1; // 进入管理子菜单
+                        // 发送初始化命令告诉vManageTask当前是密码管理
+                        key = '@'; // 特殊标记，表示初始化
+                        xQueueSend(manageQueue, &key, portMAX_DELAY);
+                        key = '2';
+                        xQueueSend(manageQueue, &key, portMAX_DELAY);
                         if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                             oled_clear();
                             oled_show_string(0, 0, "Pwd Manage:");
@@ -438,6 +462,12 @@ void vKeyMenuTask(void* pvParameters)
                         menu_state = MENU_MANAGE_RFID;
                         selected_item = 0;
                         max_items = flash_get_card_count();
+                        manage_submenu_active = 1; // 进入管理子菜单
+                        // 发送初始化命令告诉vManageTask当前是RFID管理
+                        key = '@'; // 特殊标记，表示初始化
+                        xQueueSend(manageQueue, &key, portMAX_DELAY);
+                        key = '3';
+                        xQueueSend(manageQueue, &key, portMAX_DELAY);
                         if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                             oled_clear();
                             oled_show_string(0, 0, "RFID Manage:");
@@ -483,21 +513,80 @@ void vManageTask(void* pvParameters)
     for(;;)
     {
         if(xQueueReceive(manageQueue, &key, portMAX_DELAY) == pdTRUE) {
+            // 处理初始化命令 '@'
+            if(key == '@') {
+                // 读取下一个字符确定当前菜单
+                if(xQueueReceive(manageQueue, &key, pdMS_TO_TICKS(100)) == pdTRUE) {
+                    switch(key) {
+                        case '1':
+                            current_manage_menu = MENU_MANAGE_FINGER;
+                            break;
+                        case '2':
+                            current_manage_menu = MENU_MANAGE_PWD;
+                            break;
+                        case '3':
+                            current_manage_menu = MENU_MANAGE_RFID;
+                            break;
+                    }
+                }
+                continue; // 初始化命令，不处理其他逻辑
+            }
+            
             key_feedback();
             
             if(key == '*') {
-                enrolling = 0;
-                pwd_index = 0;
-                memset(pwd_buffer, 0, sizeof(pwd_buffer));
-                selected_index = 0;
-                manage_mode_disable();
-                if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
-                    oled_clear();
-                    oled_show_string(0, 0, "System Ready!");
-                    oled_show_string(0, 2, "1-Unlock");
-                    oled_show_string(0, 4, "2-Manage");
-                    oled_show_string(0, 6, "Press 1 or 2");
-                    xSemaphoreGive(oledMutex);
+                if(enrolling) {
+                    // 如果正在录入，先退出录入状态，回到子菜单
+                    enrolling = 0;
+                    pwd_index = 0;
+                    memset(pwd_buffer, 0, sizeof(pwd_buffer));
+                    // 重新显示子菜单
+                    if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                        oled_clear();
+                        if(current_manage_menu == MENU_MANAGE_FINGER) {
+                            oled_show_string(0, 0, "Finger Manage:");
+                            oled_show_string(0, 2, "Sel: 0");
+                            oled_show_string(0, 4, "1-Del 2-Add");
+                            oled_show_string(0, 6, "*-Back");
+                        } else if(current_manage_menu == MENU_MANAGE_PWD) {
+                            max_items = flash_get_password_count();
+                            oled_show_string(0, 0, "Pwd Manage:");
+                            if(max_items > 0) {
+                                oled_show_string(0, 2, flash_get_password(0));
+                            } else {
+                                oled_show_string(0, 2, "Empty");
+                            }
+                            oled_show_string(0, 4, "1-Del 2-Add");
+                            oled_show_string(0, 6, "*-Back");
+                        } else if(current_manage_menu == MENU_MANAGE_RFID) {
+                            max_items = flash_get_card_count();
+                            oled_show_string(0, 0, "RFID Manage:");
+                            if(max_items > 0) {
+                                sprintf(card_str, "%08X", flash_get_card(0));
+                                oled_show_string(0, 2, card_str);
+                            } else {
+                                oled_show_string(0, 2, "Empty");
+                            }
+                            oled_show_string(0, 4, "1-Del 2-Add");
+                            oled_show_string(0, 6, "*-Back");
+                        }
+                        xSemaphoreGive(oledMutex);
+                    }
+                } else {
+                    // 如果不在录入状态，返回到管理主菜单
+                    enrolling = 0;
+                    pwd_index = 0;
+                    memset(pwd_buffer, 0, sizeof(pwd_buffer));
+                    selected_index = 0;
+                    manage_submenu_active = 0; // 清除子菜单标志
+                    if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                        oled_clear();
+                        oled_show_string(0, 0, "Manage Mode:");
+                        oled_show_string(0, 2, "1.Finger");
+                        oled_show_string(0, 4, "2.Password");
+                        oled_show_string(0, 6, "3.RFID *-Back");
+                        xSemaphoreGive(oledMutex);
+                    }
                 }
                 continue;
             }
@@ -794,8 +883,13 @@ void vKeyTask(void* pvParameters)
         key_val = keypad_scan();
         if(key_val != 0) {
             if(manage_mode_active) {
-                xQueueSend(keyMenuQueue, &key_val, 10);
-                xQueueSend(manageQueue, &key_val, 10);
+                if(manage_submenu_active) {
+                    // 在管理子菜单中，只发送到manageQueue
+                    xQueueSend(manageQueue, &key_val, 10);
+                } else {
+                    // 在管理主菜单中，只发送到keyMenuQueue
+                    xQueueSend(keyMenuQueue, &key_val, 10);
+                }
             } else if(keyboard_mode_active) {
                 // 在键盘模式下，只发送到keyQueue用于解锁任务
                 xQueueSend(keyQueue, &key_val, 10);

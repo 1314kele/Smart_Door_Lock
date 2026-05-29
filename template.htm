@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri May 29 14:58:59 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri May 29 15:30:13 2026
 <BR><P>
 <H3>Maximum Stack Usage =        352 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -738,25 +738,25 @@ Global Symbols
 <P><STRONG><a name="[22]"></a>TIM1_BRK_TIM9_IRQHandler</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, timer.o(i.TIM1_BRK_TIM9_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM1_BRK_TIM9_IRQHandler &rArr; TIM_GetITStatus
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
+<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
 <P><STRONG><a name="[26]"></a>TIM2_IRQHandler</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, timer.o(i.TIM2_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM2_IRQHandler &rArr; TIM_GetITStatus
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
+<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
 <P><STRONG><a name="[27]"></a>TIM3_IRQHandler</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, timer.o(i.TIM3_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM3_IRQHandler &rArr; TIM_GetITStatus
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
+<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
@@ -1210,14 +1210,13 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[e7]"></a>manage_mode_disable</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, main.o(i.manage_mode_disable))
+<P><STRONG><a name="[e7]"></a>manage_mode_disable</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, main.o(i.manage_mode_disable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = manage_mode_disable &rArr; vTaskResume &rArr; prvTaskIsTaskSuspended
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
+<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 </UL>
 
 <P><STRONG><a name="[e8]"></a>manage_mode_enable</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, main.o(i.manage_mode_enable))
@@ -1453,7 +1452,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
-<P><STRONG><a name="[65]"></a>vKeyMenuTask</STRONG> (Thumb, 1824 bytes, Stack size 32 bytes, main.o(i.vKeyMenuTask))
+<P><STRONG><a name="[65]"></a>vKeyMenuTask</STRONG> (Thumb, 1966 bytes, Stack size 32 bytes, main.o(i.vKeyMenuTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = vKeyMenuTask &rArr; oled_show_string &rArr; OLED_WriteDat &rArr; I2C_WriteByte &rArr; I2C_WaitAck &rArr; delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
@@ -1474,7 +1473,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
-<P><STRONG><a name="[64]"></a>vKeyTask</STRONG> (Thumb, 110 bytes, Stack size 8 bytes, main.o(i.vKeyTask))
+<P><STRONG><a name="[64]"></a>vKeyTask</STRONG> (Thumb, 118 bytes, Stack size 8 bytes, main.o(i.vKeyTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = vKeyTask &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
@@ -1516,7 +1515,7 @@ Global Symbols
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 </UL>
 
-<P><STRONG><a name="[6a]"></a>vManageTask</STRONG> (Thumb, 1692 bytes, Stack size 80 bytes, main.o(i.vManageTask))
+<P><STRONG><a name="[6a]"></a>vManageTask</STRONG> (Thumb, 2070 bytes, Stack size 80 bytes, main.o(i.vManageTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = vManageTask &rArr; as608_enroll_finger &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
@@ -1535,7 +1534,6 @@ Global Symbols
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_card
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_feedback
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
