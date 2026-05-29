@@ -7,7 +7,7 @@
 #include "queue.h"
 #include "semphr.h"
 
-// Ӳ������ͷ�ļ�
+// 硬件驱动头文件
 #include "oled.h"
 #include "rc522.h"
 #include "as608.h"
@@ -15,7 +15,7 @@
 #include "uart.h"
 #include "flash.h"
 
-// ������
+// 任务句柄
 TaskHandle_t app_task_init_handle = NULL;
 TaskHandle_t finger_task_handle = NULL;
 TaskHandle_t pwd_task_handle = NULL;
@@ -24,16 +24,16 @@ TaskHandle_t oled_task_handle = NULL;
 TaskHandle_t rfid_task_handle = NULL;
 TaskHandle_t uart_cmd_task_handle = NULL;
 
-// �����뻥����
-QueueHandle_t msgQueue = NULL;      // ��Ϣ���У����ڴ��ݿ���ָ���ʾָ���
-QueueHandle_t keyQueue = NULL;      // �������У������ռ����ļ�ֵ
-SemaphoreHandle_t oledMutex = NULL; // OLED��ʾ�Ļ���������ֹ������ͬʱд��Ļ
-SemaphoreHandle_t as608Mutex = NULL;// AS608ģ�黥��������ֹ��USART3����
+// 队列与互斥锁
+QueueHandle_t msgQueue = NULL;      // 消息队列，用于传递开锁指令、显示指令
+QueueHandle_t keyQueue = NULL;      // 按键队列，用于接收按键值
+SemaphoreHandle_t oledMutex = NULL; // OLED显示互斥锁，防止多个任务同时写屏幕
+SemaphoreHandle_t as608Mutex = NULL;// AS608模块互斥锁，防止USART2冲突
 
 uint32_t last_card_uid = 0;
 uint32_t saved_card_uid = 0;
 
-// ����������
+// 函数声明
 void app_task_init(void* pvParameters);
 void vFingerTask(void* pvParameters);
 void vPwdTask(void* pvParameters);
@@ -42,28 +42,28 @@ void vOledTask(void* pvParameters);
 void vRfidTask(void* pvParameters);
 void vUartCmdTask(void* pvParameters);
 
-// �����ĵ�Ԥ��2��Ĭ�Ϲ̶�����
+// 密码固定预设2个
 const char* const correct_pwd_1 = "123456";
 const char* const correct_pwd_2 = "654321";
 
 int main()
 {
-    // �ж����ȼ����� 4:0
+    // 中断优先级分组，4:0
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 
     delay_init();
 
-    // Ӳ����ʼ��
+    // 硬件初始化
     led_init();
     //beep_init();
-    keypad_init();   // 4x4������̳�ʼ��
-    oled_init();     // I2C OLED��ʼ��
-    rc522_init();    // SPI RC522��ʼ��
-    as608_init();    // ����ָ�Ƴ�ʼ��
-    flash_init();    // Flash�洢��ʼ��
+    keypad_init();   // 4x4矩阵键盘初始化
+    oled_init();     // I2C OLED初始化
+    rc522_init();    // SPI RC522初始化
+    as608_init();    // 指纹模块初始化
+    flash_init();    // Flash存储初始化
     saved_card_uid = flash_read_card_uid();
     
-    // ��ʼ�����ڣ�����/���ԣ�
+    // 初始化串口，调试/通信
     uart1_init(115200); // 串口控制台
     uart2_init(57600);   // 指纹模块 (AS608波特率-商家资料)
     uart3_init(115200);  // WiFi模块
@@ -71,7 +71,7 @@ int main()
     printf("Smart Door Lock System Start!\n");
     printf("RC522 Version: 0x%02X\r\n", rc522_ver);
 
-    /* ����app_task_init���� */
+    /* 创建app_task_init任务 */
     xTaskCreate((TaskFunction_t )app_task_init,   
                 (const char*    )"app_task_init", 
                 (uint16_t       )512,             
@@ -79,7 +79,7 @@ int main()
                 (UBaseType_t    )5,               
                 (TaskHandle_t*  )&app_task_init_handle); 
 
-    /* ����������� */
+    /* 启动任务调度器 */
     vTaskStartScheduler();
 
     while(1);
@@ -89,43 +89,43 @@ void app_task_init(void* pvParameters)
 {
     printf("app_task_init running!\r\n");
 
-    // ���������뻥����
+    // 创建队列与互斥锁
     msgQueue = xQueueCreate(10, sizeof(uint32_t)); 
     keyQueue = xQueueCreate(16, sizeof(char)); 
     oledMutex = xSemaphoreCreateMutex();
     as608Mutex = xSemaphoreCreateMutex();
 
-    // �����ٽ���
+    // 进入临界区
     taskENTER_CRITICAL();
 
-    /* ����ָ������ */
+    /* 创建指纹识别任务 */
     xTaskCreate(vFingerTask, "FingerTask", 512, NULL, 3, &finger_task_handle);      
-    /* �������봦������ */
+    /* 创建密码键盘任务 */
     xTaskCreate(vPwdTask, "PwdTask", 512, NULL, 3, &pwd_task_handle);      
-    /* ��������ɨ������ */
+    /* 创建按键扫描任务 */
     xTaskCreate(vKeyTask, "KeyTask", 512, NULL, 4, &key_task_handle);        
-    /* ����OLED��ʾ���� */
+    /* 创建OLED显示任务 */
     xTaskCreate(vOledTask, "OledTask", 512, NULL, 2, &oled_task_handle);
-    /* ����RFIDˢ������ */
+    /* 创建RFID读卡任务 */
     xTaskCreate(vRfidTask, "RfidTask", 512, NULL, 3, &rfid_task_handle);
-    /* ���ڴ��ڲ���ָ������ */
+    /* 创建串口指令处理任务 */
     xTaskCreate(vUartCmdTask, "UartCmdTask", 256, NULL, 3, &uart_cmd_task_handle);
 
-    // �˳��ٽ���
+    // 退出临界区
     taskEXIT_CRITICAL();
 
-    // ������ʾ
+    // 初始显示
     if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
         oled_clear();
         oled_show_string(0, 0, "Wait Unlock...");
         xSemaphoreGive(oledMutex);
     }
 
-    // ɾ����������
+    // 删除初始化任务
     vTaskDelete(NULL);
 }
 
-// 1. ָ�ƴ�������
+// 1. 指纹识别任务
 void vFingerTask(void* pvParameters)
 {
     uint16_t finger_id = 0;
@@ -143,24 +143,24 @@ void vFingerTask(void* pvParameters)
     }
 }
 
-// 2. ���봦������֧����λ���룩
+// 2. 密码键盘任务（支持模糊匹配）
 void vPwdTask(void* pvParameters)
 {
-    char input_buf[17] = {0}; // ���16λ�ӽ�����
+    char input_buf[17] = {0}; // 最多16位密码字符
     uint8_t index = 0;
     char key_char;
-    uint32_t cmd = 2; // 2�������뿪���ɹ�����
+    uint32_t cmd = 2; // 2表示密码开锁成功
 
     for(;;)
     {
-        // ����ͨ�� keyQueue �����İ����ַ�
+        // 等待接收从keyQueue传来的按键字符
         if(xQueueReceive(keyQueue, &key_char, portMAX_DELAY) == pdTRUE) {
             
-            // ����ȷ�ϼ���������"#")
+            // 检测到确认键或结束键（#）
             if (key_char == '#') {
-                input_buf[index] = '\0'; // ��β
+                input_buf[index] = '\0'; // 补0
                 
-                // ����������������У�Ѱ�������� 6 λ��ȷ����(��λ����ԭ��)
+                // 验证密码：在输入中搜索匹配的 6 位正确密码（模糊匹配）
                 if (strstr(input_buf, correct_pwd_1) != NULL || 
                     strstr(input_buf, correct_pwd_2) != NULL) {
                     
@@ -173,7 +173,7 @@ void vPwdTask(void* pvParameters)
                     printf("Password Error!\r\n");
                 }
                 
-                // ������뻺��
+                // 清空输入缓冲区
                 memset(input_buf, 0, sizeof(input_buf));
                 index = 0;
             } else {
@@ -185,30 +185,30 @@ void vPwdTask(void* pvParameters)
     }
 }
 
-// 3. ����ɨ������
+// 3. 按键扫描任务
 void vKeyTask(void* pvParameters)
 {
     char key_val;
     for(;;)
     {
-        // �ռ�����ֵ
+        // 获取按键值
         key_val = keypad_scan();
         if(key_val != 0) {
-            // ���͵��������
+            // 发送到按键队列
             xQueueSend(keyQueue, &key_val, 10);
         }
-        // ��������������
+        // 防按键抖动
         vTaskDelay(pdMS_TO_TICKS(100));
     }
 }
 
-// 4. OLED��ʾ����
+// 4. OLED显示任务
 void vOledTask(void* pvParameters)
 {
     uint32_t msg_cmd;
     for(;;)
     {
-        // �ȴ� msgQueue �п�����Ϣ����ʵʱ��ʾ
+        // 等待 msgQueue 中有解锁消息，并实时显示
         if(xQueueReceive(msgQueue, &msg_cmd, portMAX_DELAY) == pdTRUE) {
             if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                 oled_clear();
@@ -219,7 +219,7 @@ void vOledTask(void* pvParameters)
                 
                 xSemaphoreGive(oledMutex);
                 
-                // �ع�������
+                // 关闭成功提示
                 vTaskDelay(pdMS_TO_TICKS(2000));
                 if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                     oled_clear();
@@ -231,7 +231,7 @@ void vOledTask(void* pvParameters)
     }
 }
 
-// 5. RFID ����
+// 5. RFID读卡任务
 void vRfidTask(void* pvParameters)
 {
     uint32_t card_id = 0;
@@ -266,4 +266,3 @@ void vUartCmdTask(void* pvParameters)
         vTaskDelay(pdMS_TO_TICKS(50));
     }
 }
-

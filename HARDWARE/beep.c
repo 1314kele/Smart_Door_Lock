@@ -1,22 +1,22 @@
 #include "stm32f4xx.h"
 #include "beep.h"
 
-//BEEP³õÊ¼»¯
+//BEEPåˆå§‹åŒ–
 void beep_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	//1.¿ªÆôÊ±ÖÓ
+	//1.ä½¿èƒ½æ—¶é’Ÿ
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF,ENABLE);
 	
-	//2.³õÊ¼»¯GPIO
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//Êä³öÄ£Ê½
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+	//2.åˆå§‹åŒ–GPIO
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//è¾“å‡ºæ¨¡å¼
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//æ¨æŒ½è¾“å‡º
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;//PF8
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//ÎŞÉÏÏÂÀ­
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;//Êä³öËÙ¶È µÍ
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//ä¸å¸¦ä¸Šä¸‹æ‹‰
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;//é€Ÿåº¦ ä¸­
 	GPIO_Init(GPIOF,&GPIO_InitStructure);
 	
-	//3.Ä¬ÈÏÊä³öµÍ
+	//3.é»˜è®¤ä½ç”µå¹³
 	GPIO_ResetBits(GPIOF,GPIO_Pin_8);
 }

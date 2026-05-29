@@ -1,17 +1,17 @@
 #include "stm32f4xx.h"
 #include "mq2.h"
 
-//ÊäÈëÄ£Ê½
+//è¾“å…¥æ¨¡å¼
 void mq2_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	//1.¿ªÆôÊ±ÖÓ
+	//1.ä½¿èƒ½æ—¶é’Ÿ
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);
 	
-	//2.³õÊ¼»¯GPIO PA0
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//ÊäÈëÄ£Ê½
+	//2.åˆå§‹åŒ–GPIO PA9
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//è¾“å…¥æ¨¡å¼
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;//PA9
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//ÎŞÉÏÏÂÀ­
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//ä¸å¸¦ä¸Šä¸‹æ‹‰
 	GPIO_Init(GPIOA,&GPIO_InitStructure);	
 }

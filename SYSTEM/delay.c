@@ -12,25 +12,25 @@ void delay_init(void)
 	SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
 }
 
-//ms��ʱ  1ms = 21000    nms < 2^24 / 21000 = 798
+// ms延时  1ms = 21000    nms < 2^24 / 21000 = 798
 void delay_ms(unsigned int nms)
 {
 	uint32_t ticks;
     uint32_t told,tnow,tcnt=0;
-    uint32_t reload=SysTick->LOAD;    //ϵͳ��ʱ��������ֵ             
-    ticks=nms*(SystemCoreClock/1000);//��Ҫ�Ľ����� 
-    told=SysTick->VAL;            //�ս���ʱ�ļ�����ֵ
+    uint32_t reload=SysTick->LOAD;    //系统时钟重装载值            
+    ticks=nms*(SystemCoreClock/1000);//需要的节拍数 
+    told=SysTick->VAL;            //上次时间计数器的值
  
-    /* ���������[��ѡ,�ᵼ�¸����ȼ������޷���ռ��ǰ���񣬵��ܹ���ߵ�ǰ����ʱ��ľ�ȷ��] */
+    /* 挂起任务调度器[可选,避免高优先级任务抢占当前任务,能够获得更高的当前延时精度] */
     vTaskSuspendAll();    
- 
+
     while(1)
     {
         tnow=SysTick->VAL;
         
         if(tnow!=told)
         {     
-            /* SYSTICK��һ���ݼ��ļ����� */
+            /* SYSTICK是一个递减的计数器 */
             if(tnow<told)
                 tcnt+=told-tnow;        
             else 
@@ -38,13 +38,13 @@ void delay_ms(unsigned int nms)
             
             told=tnow;
             
-            /* ʱ�䳬��/����Ҫ�ӳٵ�ʱ��,���˳���*/
+            /* 时间到达/超过需要延迟的时间,则退出循环*/
             if(tcnt>=ticks)
                 break;            
         }  
     }
 
-    /* �ָ�������[��ѡ] */
+    /* 恢复任务调度器[可选] */
     xTaskResumeAll();
 }
 
@@ -53,20 +53,20 @@ void delay_us(uint32_t nus)
 {        
     uint32_t ticks;
     uint32_t told,tnow,tcnt=0;
-    uint32_t reload=SysTick->LOAD;    //ϵͳ��ʱ��������ֵ             
-    ticks=nus*(SystemCoreClock/1000000);//��Ҫ�Ľ����� 
-    told=SysTick->VAL;            //�ս���ʱ�ļ�����ֵ
+    uint32_t reload=SysTick->LOAD;    //系统时钟重装载值            
+    ticks=nus*(SystemCoreClock/1000000);//需要的节拍数 
+    told=SysTick->VAL;            //上次时间计数器的值
  
-    /* ���������[��ѡ,�ᵼ�¸����ȼ������޷���ռ��ǰ���񣬵��ܹ���ߵ�ǰ����ʱ��ľ�ȷ��] */
+    /* 挂起任务调度器[可选,避免高优先级任务抢占当前任务,能够获得更高的当前延时精度] */
     vTaskSuspendAll();    
- 
+
     while(1)
     {
         tnow=SysTick->VAL;
         
         if(tnow!=told)
         {     
-            /* SYSTICK��һ���ݼ��ļ����� */
+            /* SYSTICK是一个递减的计数器 */
             if(tnow<told)
                 tcnt+=told-tnow;        
             else 
@@ -74,12 +74,12 @@ void delay_us(uint32_t nus)
             
             told=tnow;
             
-            /* ʱ�䳬��/����Ҫ�ӳٵ�ʱ��,���˳���*/
+            /* 时间到达/超过需要延迟的时间,则退出循环*/
             if(tcnt>=ticks)
                 break;            
         }  
     }
 
-    /* �ָ�������[��ѡ] */
+    /* 恢复任务调度器[可选] */
     xTaskResumeAll();
 }  

@@ -7,37 +7,37 @@ void sr04_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	//1.¿ªÆôÊ±ÖÓ
+	//1.ä½¿èƒ½æ—¶é’Ÿ
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA|RCC_AHB1Periph_GPIOE,ENABLE);
 	
-	//2.³õÊ¼»¯GPIO PA8 ECHO
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//ÊäÈëÄ£Ê½
+	//2.åˆå§‹åŒ–GPIO PA8 ECHO
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//è¾“å…¥æ¨¡å¼
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;//PA8
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//ÎŞÉÏÏÂÀ­
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//ä¸å¸¦ä¸Šä¸‹æ‹‰
 	GPIO_Init(GPIOA,&GPIO_InitStructure);	
 	//PE6 TRIG
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//Êä³öÄ£Ê½
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//è¾“å‡ºæ¨¡å¼
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//æ¨æŒ½è¾“å‡º
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;//PE6
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//ÎŞÉÏÏÂÀ­
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;//Êä³öËÙ¶È µÍ
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//ä¸å¸¦ä¸Šä¸‹æ‹‰
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;//é€Ÿåº¦ ä¸­
 	GPIO_Init(GPIOE,&GPIO_InitStructure);
 	
-	//TRIGÄ¬ÈÏÊä³öµÍ
+	//TRIGé»˜è®¤ä½ç”µå¹³
 	TRIG = 0;
 }
 
-//²â¾à
+//æµ‹è·
 int get_distance(void)
 {
 	u32 retry = 0;//,count = 0;
 	
-	//1.TRIG·¢ËÍ >10usµÄ¸ßµçÆ½ÆğÊ¼ĞÅºÅ
+	//1.TRIGè§¦å‘ >10usçš„é«˜ç”µå¹³å¯åŠ¨ä¿¡å·
 	TRIG = 1;
 	delay_us(15);
 	TRIG = 0;
 	
-	//2.µÈ´ıECHO±ä¸ß,³¬¹ı60ms²»±ä¸ß£¬Ö±½ÓÍË³ö·µ»Ø-1
+	//2.ç­‰å¾…ECHOé«˜ç”µå¹³,å¦‚æœ60msæ²¡æœ‰é«˜ç”µå¹³,ç›´æ¥é€€å‡ºè¿”å›-1
 	while(ECHO==0){
 		retry++;
 		delay_us(1);
@@ -46,12 +46,12 @@ int get_distance(void)
 			return -1;
 	}
 	
-	//Æô¶¯¶¨Ê±Æ÷
+	//å¼€å¯å®šæ—¶å™¨
 //	TIM_SetCounter(TIM2,0);
 //	TIM_Cmd(TIM2,ENABLE);
 	
 	retry = 0;
-	//3.¼ÆËã¸ßµçÆ½ÊÂ¼ş,µÈ´ıECHO±äµÍ
+	//3.é«˜ç”µå¹³è®¡æ—¶,ç­‰å¾…ECHOä½ç”µå¹³
 	while(ECHO==1){
 		retry++;
 		delay_us(10);
@@ -62,11 +62,11 @@ int get_distance(void)
 		}
 	}
 	
-	//¶ÁÈ¡¶¨Ê±Æ÷µÄ¼ÆÊıÖµ
+	//è·å–å®šæ—¶å™¨çš„è®¡æ•°å€¼
 	//count = TIM_GetCounter(TIM2);
 	//TIM_Cmd(TIM2,DISABLE);
 	
-	//4.Í¨¹ı¸ßµçÆ½Ê±¼ä¼ÆËã¾àÀë
+	//4.é€šè¿‡é«˜ç”µå¹³æ—¶é—´è®¡ç®—è·ç¦»
 	return retry*10/58;
 	
 }

@@ -9,5 +9,6 @@ uint8_t as608_handshake(void);
 uint8_t as608_search_finger(uint16_t *finger_id);
 uint8_t as608_enroll_finger(uint16_t finger_id);
 void as608_clear_all(void);
+uint8_t as608_delete_finger(uint16_t finger_id);
 
 #endif

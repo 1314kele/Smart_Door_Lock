@@ -26,11 +26,18 @@ Project File Date:  05/27/2026
 
 <h2>Output:</h2>
 Build target 'template'
+compiling main.c...
+compiling as608.c...
+HARDWARE\as608.c(154): warning:  #223-D: function "vTaskDelay" declared implicitly
+          vTaskDelay(pdMS_TO_TICKS(200));
+HARDWARE\as608.c(170): warning:  #223-D: function "vTaskDelay" declared implicitly
+      vTaskDelay(pdMS_TO_TICKS(1000));
+HARDWARE\as608.c: 2 warnings, 0 errors
 compiling uart.c...
 linking...
 Program Size: Code=21996 RO-data=1984 RW-data=296 ZI-data=78456  
 FromELF: creating hex file...
-".\template.axf" - 0 Error(s), 0 Warning(s).
+".\template.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
