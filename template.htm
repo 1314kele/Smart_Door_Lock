@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri May 29 15:30:13 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri May 29 16:00:48 2026
 <BR><P>
 <H3>Maximum Stack Usage =        352 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -738,25 +738,25 @@ Global Symbols
 <P><STRONG><a name="[22]"></a>TIM1_BRK_TIM9_IRQHandler</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, timer.o(i.TIM1_BRK_TIM9_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM1_BRK_TIM9_IRQHandler &rArr; TIM_GetITStatus
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
+<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
 <P><STRONG><a name="[26]"></a>TIM2_IRQHandler</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, timer.o(i.TIM2_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM2_IRQHandler &rArr; TIM_GetITStatus
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
+<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
 <P><STRONG><a name="[27]"></a>TIM3_IRQHandler</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, timer.o(i.TIM3_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM3_IRQHandler &rArr; TIM_GetITStatus
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
@@ -877,6 +877,8 @@ Global Symbols
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyTask
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_enable
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
@@ -1144,16 +1146,17 @@ Global Symbols
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 </UL>
 
-<P><STRONG><a name="[d0]"></a>keyboard_mode_disable</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, main.o(i.keyboard_mode_disable))
+<P><STRONG><a name="[d0]"></a>keyboard_mode_disable</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, main.o(i.keyboard_mode_disable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = keyboard_mode_disable &rArr; vTaskResume &rArr; prvTaskIsTaskSuspended
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
+<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 </UL>
 
-<P><STRONG><a name="[d2]"></a>keyboard_mode_enable</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.keyboard_mode_enable))
+<P><STRONG><a name="[d2]"></a>keyboard_mode_enable</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, main.o(i.keyboard_mode_enable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = keyboard_mode_enable &rArr; __2printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
@@ -1235,9 +1238,12 @@ Global Symbols
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteCmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vOledTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
 </UL>
 
@@ -1261,9 +1267,12 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteDat
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vOledTask
+<BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vOledTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
 </UL>
 
@@ -1440,24 +1449,27 @@ Global Symbols
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 </UL>
 
-<P><STRONG><a name="[62]"></a>vFingerTask</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, main.o(i.vFingerTask))
+<P><STRONG><a name="[62]"></a>vFingerTask</STRONG> (Thumb, 198 bytes, Stack size 16 bytes, main.o(i.vFingerTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = vFingerTask &rArr; as608_search_finger &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
-<P><STRONG><a name="[65]"></a>vKeyMenuTask</STRONG> (Thumb, 1966 bytes, Stack size 32 bytes, main.o(i.vKeyMenuTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = vKeyMenuTask &rArr; oled_show_string &rArr; OLED_WriteDat &rArr; I2C_WriteByte &rArr; I2C_WaitAck &rArr; delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<P><STRONG><a name="[65]"></a>vKeyMenuTask</STRONG> (Thumb, 1804 bytes, Stack size 24 bytes, main.o(i.vKeyMenuTask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = vKeyMenuTask &rArr; oled_show_string &rArr; OLED_WriteDat &rArr; I2C_WriteByte &rArr; I2C_WaitAck &rArr; delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
@@ -1470,15 +1482,17 @@ Global Symbols
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_feedback
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
-<P><STRONG><a name="[64]"></a>vKeyTask</STRONG> (Thumb, 118 bytes, Stack size 8 bytes, main.o(i.vKeyTask))
+<P><STRONG><a name="[64]"></a>vKeyTask</STRONG> (Thumb, 176 bytes, Stack size 8 bytes, main.o(i.vKeyTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = vKeyTask &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
@@ -1613,15 +1627,18 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSendFromISR
 </UL>
 
-<P><STRONG><a name="[63]"></a>vPwdTask</STRONG> (Thumb, 198 bytes, Stack size 32 bytes, main.o(i.vPwdTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = vPwdTask &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
+<P><STRONG><a name="[63]"></a>vPwdTask</STRONG> (Thumb, 504 bytes, Stack size 32 bytes, main.o(i.vPwdTask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = vPwdTask &rArr; oled_show_string &rArr; OLED_WriteDat &rArr; I2C_WriteByte &rArr; I2C_WaitAck &rArr; delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
@@ -1643,7 +1660,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessTimerOrBlockTask
 </UL>
 
-<P><STRONG><a name="[67]"></a>vRfidTask</STRONG> (Thumb, 200 bytes, Stack size 16 bytes, main.o(i.vRfidTask))
+<P><STRONG><a name="[67]"></a>vRfidTask</STRONG> (Thumb, 306 bytes, Stack size 16 bytes, main.o(i.vRfidTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = vRfidTask &rArr; rc522_read_card &rArr; RC522_Request &rArr; RC522_ToCard &rArr; RC522_SetBitMask &rArr; RC522_WriteReg &rArr; SPI_RW &rArr; spi_delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
@@ -1651,6 +1668,8 @@ Global Symbols
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_read_card
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -1673,7 +1692,6 @@ Global Symbols
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vOledTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyTask
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_find_str
@@ -1733,7 +1751,8 @@ Global Symbols
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
+<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
 </UL>
 
@@ -1884,6 +1903,7 @@ Global Symbols
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vOledTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all

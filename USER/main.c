@@ -40,6 +40,8 @@ volatile uint8_t current_mode = 0;
 volatile uint8_t unlock_executing = 0;
 volatile uint8_t manage_mode_active = 0;
 volatile uint8_t manage_submenu_active = 0; // 是否进入了管理子菜单
+volatile uint8_t unlock_mode_active = 0; // 是否进入了解锁模式
+volatile uint8_t selected_unlock_mode = 0; // 当前选择的解锁方式 (0=none, 1=finger, 2=password, 3=rfid)
 
 typedef enum {
     MODE_FINGER = 0,
@@ -113,7 +115,7 @@ void key_feedback(void) {
 void keyboard_mode_enable(void) {
     keyboard_mode_active = 1;
     if(finger_task_handle) vTaskSuspend(finger_task_handle);
-    if(pwd_task_handle) vTaskSuspend(pwd_task_handle);
+    // 不挂起pwd_task，因为它需要处理键盘输入
     printf("[Keyboard] Mode activated!\r\n");
 }
 
@@ -121,7 +123,7 @@ void keyboard_mode_disable(void) {
     keyboard_mode_active = 0;
     current_mode = 0;
     if(finger_task_handle) vTaskResume(finger_task_handle);
-    if(pwd_task_handle) vTaskResume(pwd_task_handle);
+    // pwd_task没有被挂起，所以不需要恢复
     printf("[Keyboard] Mode deactivated!\r\n");
 }
 
@@ -263,6 +265,11 @@ void vKeyMenuTask(void* pvParameters)
                 menu_state = MENU_MANAGE;
             }
             
+            // 如果解锁模式已经退出，但menu_state还在MENU_UNLOCK，重置为MENU_MAIN
+            if(menu_state == MENU_UNLOCK && !unlock_mode_active) {
+                menu_state = MENU_MAIN;
+            }
+            
             key_feedback();
             
             if(key == '*') {
@@ -286,6 +293,8 @@ void vKeyMenuTask(void* pvParameters)
                     if(key == '1') {
                         selected_item = 0;
                         menu_state = MENU_UNLOCK;
+                        unlock_mode_active = 1; // 进入解锁模式
+                        selected_unlock_mode = 0; // 还未选择具体方式
                         if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                             oled_clear();
                             oled_show_string(0, 0, "Unlock Mode:");
@@ -311,11 +320,8 @@ void vKeyMenuTask(void* pvParameters)
                     
                 case MENU_UNLOCK:
                     if(key == '1') {
-                        unlock_in_progress = 1; // 标记解锁任务开始
-                        keyboard_mode_enable(); // 只有真正开始解锁任务时才启用键盘模式
-                        unlock_req.mode = MODE_FINGER;
-                        unlock_req.timeout_ms = 10000;
-                        xQueueSend(unlockReqQueue, &unlock_req, portMAX_DELAY);
+                        // 选择指纹解锁
+                        selected_unlock_mode = 1;
                         if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                             oled_clear();
                             oled_show_string(0, 0, "Finger Unlock");
@@ -323,34 +329,13 @@ void vKeyMenuTask(void* pvParameters)
                             oled_show_string(0, 6, "* to cancel");
                             xSemaphoreGive(oledMutex);
                         }
-                        if(xQueueReceive(unlockResultQueue, &unlock_result, pdMS_TO_TICKS(12000)) == pdTRUE) {
-                            if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
-                                oled_clear();
-                                if(unlock_result.success) {
-                                    oled_show_string(0, 2, "SUCCESS!");
-                                    D1 = 0;
-                                    vTaskDelay(pdMS_TO_TICKS(2000));
-                                    D1 = 1;
-                                } else {
-                                    oled_show_string(0, 2, "FAILED!");
-                                    vTaskDelay(pdMS_TO_TICKS(1000));
-                                }
-                                oled_show_string(0, 0, "System Ready!");
-                                oled_show_string(0, 2, "1-Unlock");
-                                oled_show_string(0, 4, "2-Manage");
-                                oled_show_string(0, 6, "Press 1 or 2");
-                                xSemaphoreGive(oledMutex);
-                            }
-                        }
-                        menu_state = MENU_MAIN;
-                        keyboard_mode_disable();
-                        unlock_in_progress = 0; // 标记解锁任务结束
                     } else if(key == '2') {
-                        unlock_in_progress = 1; // 标记解锁任务开始
-                        keyboard_mode_enable(); // 只有真正开始解锁任务时才启用键盘模式
-                        unlock_req.mode = MODE_PASSWORD;
-                        unlock_req.timeout_ms = 10000;
-                        xQueueSend(unlockReqQueue, &unlock_req, portMAX_DELAY);
+                        // 选择密码解锁
+                        printf("[vKeyMenuTask] Selected password unlock mode\r\n");
+                        selected_unlock_mode = 2;
+                        printf("[vKeyMenuTask] selected_unlock_mode=%d\r\n", selected_unlock_mode);
+                        keyboard_mode_enable(); // 启用键盘输入
+                        printf("[vKeyMenuTask] keyboard_mode_active=%d after enable\r\n", keyboard_mode_active);
                         if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                             oled_clear();
                             oled_show_string(0, 0, "Password Unlock");
@@ -358,34 +343,14 @@ void vKeyMenuTask(void* pvParameters)
                             oled_show_string(0, 6, "#-OK *-Cancel");
                             xSemaphoreGive(oledMutex);
                         }
-                        if(xQueueReceive(unlockResultQueue, &unlock_result, pdMS_TO_TICKS(12000)) == pdTRUE) {
-                            if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
-                                oled_clear();
-                                if(unlock_result.success) {
-                                    oled_show_string(0, 2, "SUCCESS!");
-                                    D1 = 0;
-                                    vTaskDelay(pdMS_TO_TICKS(2000));
-                                    D1 = 1;
-                                } else {
-                                    oled_show_string(0, 2, "FAILED!");
-                                    vTaskDelay(pdMS_TO_TICKS(1000));
-                                }
-                                oled_show_string(0, 0, "System Ready!");
-                                oled_show_string(0, 2, "1-Unlock");
-                                oled_show_string(0, 4, "2-Manage");
-                                oled_show_string(0, 6, "Press 1 or 2");
-                                xSemaphoreGive(oledMutex);
-                            }
+                        // 唤醒密码任务
+                        if(pwd_task_handle) {
+                            printf("[vKeyMenuTask] Resuming pwd_task_handle\r\n");
+                            vTaskResume(pwd_task_handle);
                         }
-                        menu_state = MENU_MAIN;
-                        keyboard_mode_disable();
-                        unlock_in_progress = 0; // 标记解锁任务结束
                     } else if(key == '3') {
-                        unlock_in_progress = 1; // 标记解锁任务开始
-                        keyboard_mode_enable(); // 只有真正开始解锁任务时才启用键盘模式
-                        unlock_req.mode = MODE_RFID;
-                        unlock_req.timeout_ms = 10000;
-                        xQueueSend(unlockReqQueue, &unlock_req, portMAX_DELAY);
+                        // 选择RFID解锁
+                        selected_unlock_mode = 3;
                         if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                             oled_clear();
                             oled_show_string(0, 0, "RFID Unlock");
@@ -393,30 +358,24 @@ void vKeyMenuTask(void* pvParameters)
                             oled_show_string(0, 6, "* to cancel");
                             xSemaphoreGive(oledMutex);
                         }
-                        if(xQueueReceive(unlockResultQueue, &unlock_result, pdMS_TO_TICKS(12000)) == pdTRUE) {
-                            if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
-                                oled_clear();
-                                if(unlock_result.success) {
-                                    oled_show_string(0, 2, "SUCCESS!");
-                                    D1 = 0;
-                                    vTaskDelay(pdMS_TO_TICKS(2000));
-                                    D1 = 1;
-                                } else {
-                                    oled_show_string(0, 2, "FAILED!");
-                                    vTaskDelay(pdMS_TO_TICKS(1000));
-                                }
-                                oled_show_string(0, 0, "System Ready!");
-                                oled_show_string(0, 2, "1-Unlock");
-                                oled_show_string(0, 4, "2-Manage");
-                                oled_show_string(0, 6, "Press 1 or 2");
-                                xSemaphoreGive(oledMutex);
-                            }
-                        }
+                    } else if(key == '*') {
+                        // 取消解锁，返回主菜单
+                        unlock_mode_active = 0;
+                        selected_unlock_mode = 0;
                         menu_state = MENU_MAIN;
                         keyboard_mode_disable();
-                        unlock_in_progress = 0; // 标记解锁任务结束
+                        if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                            oled_clear();
+                            oled_show_string(0, 0, "System Ready!");
+                            oled_show_string(0, 2, "1-Unlock");
+                            oled_show_string(0, 4, "2-Manage");
+                            oled_show_string(0, 6, "Press 1 or 2");
+                            xSemaphoreGive(oledMutex);
+                        }
                     }
                     break;
+                    
+                    // 密码解锁结果处理移到vPwdTask中，这里不再处理
                     
                 case MENU_MANAGE:
                     if(key == '1') {
@@ -812,12 +771,27 @@ void vFingerTask(void* pvParameters)
             continue;
         }
         
-        if (as608_search_finger(&finger_id)) {
-            printf("Finger Unlock! ID: %d\r\n", finger_id);
-            xQueueSend(msgQueue, &cmd, 10);
-            D1 = 0;
-            delay_ms(2000);
-            D1 = 1;
+        // 只有在选择了指纹解锁后才扫描指纹
+        if(unlock_mode_active && selected_unlock_mode == 1) {
+            if (as608_search_finger(&finger_id)) {
+                printf("Finger Unlock! ID: %d\r\n", finger_id);
+                xQueueSend(msgQueue, &cmd, 10);
+                D1 = 0;
+                delay_ms(2000);
+                D1 = 1;
+                // 解锁成功后重置选择状态
+                selected_unlock_mode = 0;
+                unlock_mode_active = 0;
+                // 返回系统就绪状态
+                if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                    oled_clear();
+                    oled_show_string(0, 0, "System Ready!");
+                    oled_show_string(0, 2, "1-Unlock");
+                    oled_show_string(0, 4, "2-Manage");
+                    oled_show_string(0, 6, "Press 1 or 2");
+                    xSemaphoreGive(oledMutex);
+                }
+            }
         }
         vTaskDelay(pdMS_TO_TICKS(500));
     }
@@ -836,18 +810,47 @@ void vPwdTask(void* pvParameters)
 
     for(;;)
     {
-        if(keyboard_mode_active || manage_mode_active) {
+        // 只有在选择了密码解锁且键盘模式激活时才处理密码输入
+        printf("[PwdTask] Checking conditions - keyboard_mode_active=%d, unlock_mode_active=%d, selected_unlock_mode=%d\r\n", 
+               keyboard_mode_active, unlock_mode_active, selected_unlock_mode);
+        
+        if(!keyboard_mode_active || !unlock_mode_active || selected_unlock_mode != 2) {
+            printf("[PwdTask] Conditions not met, suspending...\r\n");
             vTaskSuspend(NULL);
+            printf("[PwdTask] Resumed!\r\n");
             continue;
         }
         
+        printf("[PwdTask] Waiting for key input...\r\n");
+        
         if(xQueueReceive(keyQueue, &key_char, portMAX_DELAY) == pdTRUE) {
-            if (key_char == '#') {
+            printf("[PwdTask] Key received: '%c' (0x%02X)\r\n", key_char, (unsigned char)key_char);
+            
+            if (key_char == '*') {
+                printf("[PwdTask] Cancel pressed, returning to unlock menu\r\n");
+                // 取消密码输入
+                index = 0;
+                memset(input_buf, 0, sizeof(input_buf));
+                selected_unlock_mode = 0;
+                keyboard_mode_disable();
+                // 返回解锁模式菜单
+                if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                    oled_clear();
+                    oled_show_string(0, 0, "Unlock Mode:");
+                    oled_show_string(0, 2, "1.Finger");
+                    oled_show_string(0, 4, "2.Password");
+                    oled_show_string(0, 6, "3.RFID *-Back");
+                    xSemaphoreGive(oledMutex);
+                }
+            } else if (key_char == '#') {
+                printf("[PwdTask] Hash pressed, checking password: %s\r\n", input_buf);
                 input_buf[index] = '\0';
                 matched = 0;
                 count = flash_get_password_count();
+                printf("[PwdTask] Number of passwords: %d\r\n", count);
                 for(i = 0; i < count; i++) {
                     pwd = flash_get_password(i);
+                    printf("[PwdTask] Comparing with password %d: %s\r\n", i, pwd);
                     if(strstr(input_buf, pwd) != NULL) {
                         matched = 1;
                         break;
@@ -860,6 +863,19 @@ void vPwdTask(void* pvParameters)
                     D1 = 0; 
                     vTaskDelay(pdMS_TO_TICKS(2000));
                     D1 = 1;
+                    // 解锁成功后重置状态
+                    selected_unlock_mode = 0;
+                    unlock_mode_active = 0;
+                    keyboard_mode_disable();
+                    // 返回系统就绪状态
+                    if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                        oled_clear();
+                        oled_show_string(0, 0, "System Ready!");
+                        oled_show_string(0, 2, "1-Unlock");
+                        oled_show_string(0, 4, "2-Manage");
+                        oled_show_string(0, 6, "Press 1 or 2");
+                        xSemaphoreGive(oledMutex);
+                    }
                 } else {
                     printf("Password Error!\r\n");
                 }
@@ -869,6 +885,9 @@ void vPwdTask(void* pvParameters)
             } else {
                 if(index < 16) {
                     input_buf[index++] = key_char;
+                    printf("[PwdTask] Added char '%c', buffer: %s\r\n", key_char, input_buf);
+                } else {
+                    printf("[PwdTask] Buffer full!\r\n");
                 }
             }
         }
@@ -882,18 +901,26 @@ void vKeyTask(void* pvParameters)
     {
         key_val = keypad_scan();
         if(key_val != 0) {
+            printf("[vKeyTask] Key scanned: '%c' (0x%02X)\r\n", key_val, (unsigned char)key_val);
+            printf("[vKeyTask] States: manage_mode_active=%d, manage_submenu_active=%d, keyboard_mode_active=%d\r\n", 
+                   manage_mode_active, manage_submenu_active, keyboard_mode_active);
+            
             if(manage_mode_active) {
                 if(manage_submenu_active) {
                     // 在管理子菜单中，只发送到manageQueue
+                    printf("[vKeyTask] Sending to manageQueue\r\n");
                     xQueueSend(manageQueue, &key_val, 10);
                 } else {
                     // 在管理主菜单中，只发送到keyMenuQueue
+                    printf("[vKeyTask] Sending to keyMenuQueue\r\n");
                     xQueueSend(keyMenuQueue, &key_val, 10);
                 }
             } else if(keyboard_mode_active) {
                 // 在键盘模式下，只发送到keyQueue用于解锁任务
+                printf("[vKeyTask] Sending to keyQueue (keyboard mode)\r\n");
                 xQueueSend(keyQueue, &key_val, 10);
             } else {
+                printf("[vKeyTask] Sending to keyQueue and keyMenuQueue\r\n");
                 xQueueSend(keyQueue, &key_val, 10);
                 xQueueSend(keyMenuQueue, &key_val, 10);
             }
@@ -958,24 +985,39 @@ void vRfidTask(void* pvParameters)
                 if(keyboard_mode_active) {
                     printf("[RFID] Card detected (keyboard mode): %08X\r\n", card_id);
                 } else {
-                    printf("RFID Card: %08X\r\n", card_id);
-                    matched = 0;
-                    count = flash_get_card_count();
-                    for(i = 0; i < count; i++) {
-                        if(card_id == flash_get_card(i)) {
-                            matched = 1;
-                            break;
+                    // 只有在选择了RFID解锁后才进行解锁验证
+                    if(unlock_mode_active && selected_unlock_mode == 3) {
+                        printf("RFID Card: %08X\r\n", card_id);
+                        matched = 0;
+                        count = flash_get_card_count();
+                        for(i = 0; i < count; i++) {
+                            if(card_id == flash_get_card(i)) {
+                                matched = 1;
+                                break;
+                            }
                         }
-                    }
-                    
-                    if(matched) {
-                        printf("RFID Unlock! Card: %08X\r\n", card_id);
-                        xQueueSend(msgQueue, &cmd, 10);
-                        D1 = 0;
-                        vTaskDelay(pdMS_TO_TICKS(2000));
-                        D1 = 1;
-                    } else {
-                        printf("RFID Denied! Unknown card.\r\n");
+                        
+                        if(matched) {
+                            printf("RFID Unlock! Card: %08X\r\n", card_id);
+                            xQueueSend(msgQueue, &cmd, 10);
+                            D1 = 0;
+                            vTaskDelay(pdMS_TO_TICKS(2000));
+                            D1 = 1;
+                            // 解锁成功后重置选择状态
+                            selected_unlock_mode = 0;
+                            unlock_mode_active = 0;
+                            // 返回系统就绪状态
+                            if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                                oled_clear();
+                                oled_show_string(0, 0, "System Ready!");
+                                oled_show_string(0, 2, "1-Unlock");
+                                oled_show_string(0, 4, "2-Manage");
+                                oled_show_string(0, 6, "Press 1 or 2");
+                                xSemaphoreGive(oledMutex);
+                            }
+                        } else {
+                            printf("RFID Denied! Unknown card.\r\n");
+                        }
                     }
                 }
             }
