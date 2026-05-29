@@ -392,7 +392,7 @@ void vKeyMenuTask(void* pvParameters)
                             oled_show_string(0, 0, "Finger Manage:");
                             oled_show_string(0, 2, "Sel: 0");
                             oled_show_string(0, 4, "1-Del 2-Add");
-                            oled_show_string(0, 6, "*-Back");
+                            oled_show_string(0, 6, "3-Up 4-Down");
                             xSemaphoreGive(oledMutex);
                         }
                     } else if(key == '2') {
@@ -414,7 +414,7 @@ void vKeyMenuTask(void* pvParameters)
                                 oled_show_string(0, 2, "Empty");
                             }
                             oled_show_string(0, 4, "1-Del 2-Add");
-                            oled_show_string(0, 6, "*-Back");
+                            oled_show_string(0, 6, "3-Up 4-Down");
                             xSemaphoreGive(oledMutex);
                         }
                     } else if(key == '3') {
@@ -437,7 +437,7 @@ void vKeyMenuTask(void* pvParameters)
                                 oled_show_string(0, 2, "Empty");
                             }
                             oled_show_string(0, 4, "1-Del 2-Add");
-                            oled_show_string(0, 6, "*-Back");
+                            oled_show_string(0, 6, "3-Up 4-Down");
                             xSemaphoreGive(oledMutex);
                         }
                     }
@@ -700,6 +700,22 @@ void vManageTask(void* pvParameters)
                         }
                         xSemaphoreGive(oledMutex);
                     }
+                } else if(key == '3') {
+                    // 向上选择
+                    if(selected_index > 0) {
+                        selected_index--;
+                    }
+                } else if(key == '4') {
+                    // 向下选择
+                    if(current_manage_menu == MENU_MANAGE_FINGER) {
+                        if(selected_index < 9) {
+                            selected_index++;
+                        }
+                    } else {
+                        if(selected_index < max_items - 1) {
+                            selected_index++;
+                        }
+                    }
                 } else if(key >= '1' && key <= '9') {
                     idx = key - '1';
                     if(current_manage_menu == MENU_MANAGE_FINGER) {
@@ -727,7 +743,7 @@ void vManageTask(void* pvParameters)
                             sprintf(finger_info, "Sel: %d", selected_index);
                             oled_show_string(0, 2, finger_info);
                             oled_show_string(0, 4, "1-Del 2-Add");
-                            oled_show_string(0, 6, "*-Back");
+                            oled_show_string(0, 6, "3-Up 4-Down");
                             break;
                             
                         case MENU_MANAGE_PWD:
@@ -738,7 +754,7 @@ void vManageTask(void* pvParameters)
                                 oled_show_string(0, 2, "Empty");
                             }
                             oled_show_string(0, 4, "1-Del 2-Add");
-                            oled_show_string(0, 6, "*-Back");
+                            oled_show_string(0, 6, "3-Up 4-Down");
                             break;
                             
                         case MENU_MANAGE_RFID:
@@ -750,7 +766,7 @@ void vManageTask(void* pvParameters)
                                 oled_show_string(0, 2, "Empty");
                             }
                             oled_show_string(0, 4, "1-Del 2-Add");
-                            oled_show_string(0, 6, "*-Back");
+                            oled_show_string(0, 6, "3-Up 4-Down");
                             break;
                     }
                     xSemaphoreGive(oledMutex);
