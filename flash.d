@@ -18,3 +18,4 @@
 .\flash.o: D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_tim.h
 .\flash.o: D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_usart.h
 .\flash.o: D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\misc.h
+.\flash.o: D:\D2\keil_v5\ARM\ARMCC\Bin\..\include\string.h
