@@ -3,7 +3,6 @@
 #include "led.h"
 #include "sys.h"
 #include "as608.h"
-#include "mqtt.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -391,10 +390,6 @@ void parse_bl_cmd(void)
 					else if(strstr(start, "lock")){
 						printf("WiFi Lock!\r\n");
 						D1 = 1;
-					}
-					else if(strstr(start, "mqtt_test")){
-						printf("[MQTT] Sending test message...\n");
-						mqtt_publish_message("{\"test\":\"hello from STM32\"}");
 					}
 				}
 				start = buf_copy + i + 1;

@@ -5,7 +5,6 @@
 
 #include "FreeRTOS.h"
 #include "semphr.h"
-#include "mqtt.h"
 
 extern SemaphoreHandle_t as608Mutex;
 uint8_t fingerprint_enrolling = 0;
@@ -223,9 +222,6 @@ uint8_t as608_enroll_finger(uint16_t finger_id) {
     printf("[Enroll] SUCCESS! Finger ID=%d enrolled!\r\n", finger_id);
     result = 1;
     
-    // 发送MQTT通知
-    mqtt_publish_finger_result(FINGER_OP_ADD, finger_id, 1);
-    
 exit:
     fingerprint_enrolling = 0;
     xSemaphoreGive(as608Mutex);
@@ -244,10 +240,8 @@ void as608_clear_all(void) {
     as608_send_cmd(cmd_empty, sizeof(cmd_empty));
     if(as608_receve_reply(reply, 200, 12) >= 12 && reply[9] == 0x00) {
         printf("[Finger] All fingerprints cleared!\r\n");
-        mqtt_publish_message("{\"operation\":\"clear_all\",\"success\":1}");
     } else {
         printf("[Finger] Clear fail: code=0x%02X\r\n", reply[9]);
-        mqtt_publish_message("{\"operation\":\"clear_all\",\"success\":0}");
     }
     
     xSemaphoreGive(as608Mutex);
@@ -271,10 +265,8 @@ uint8_t as608_delete_finger(uint16_t finger_id) {
     if(as608_receve_reply(reply, 1000, 12) >= 12 && reply[9] == 0x00) {
         printf("[Delete] Finger ID=%d deleted!\r\n", finger_id);
         result = 1;
-        mqtt_publish_finger_result(FINGER_OP_DELETE, finger_id, 1);
     } else {
         printf("[Delete] Fail! code=0x%02X\r\n", reply[9]);
-        mqtt_publish_finger_result(FINGER_OP_DELETE, finger_id, 0);
     }
     
     xSemaphoreGive(as608Mutex);
