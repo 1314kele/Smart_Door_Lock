@@ -1,5 +1,5 @@
 Dependencies for Project 'template', Target 'template': (DO NOT MODIFY !)
-F (.\USER\main.c)(0x6A1A49B0)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\RTE -I.\RTE\Device\STM32F407ZE -I.\HARDWARE -I.\USER -I.\SYSTEM -I.\FreeRTOS -I.\FreeRTOS\include-I D:\share\Smart_Door_Lock\RTE-I D:\share\Smart_Door_Lock\RTE\Device\STM32F407ZE-I D:\D2\keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+F (.\USER\main.c)(0x6A1A502C)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\RTE -I.\RTE\Device\STM32F407ZE -I.\HARDWARE -I.\USER -I.\SYSTEM -I.\FreeRTOS -I.\FreeRTOS\include-I D:\share\Smart_Door_Lock\RTE-I D:\share\Smart_Door_Lock\RTE\Device\STM32F407ZE-I D:\D2\keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o .\main.o --omf_browse .\main.crf --depend .\main.d)
 I (USER\includes.h)(0x6A0BD94A)
 I (D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h)(0x69E88ED0)
 I (D:\D2\keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cm4.h)(0x53FC31DA)
@@ -26,7 +26,7 @@ I (.\HARDWARE\mq2.h)(0x69E9DE4A)
 I (.\SYSTEM\delay.h)(0x69EADB66)
 I (.\HARDWARE\timer.h)(0x69EB3470)
 I (.\HARDWARE\pwm.h)(0x69EF166F)
-I (.\SYSTEM\uart.h)(0x6A196E35)
+I (.\SYSTEM\uart.h)(0x6A1A5039)
 I (.\HARDWARE\sr04.h)(0x69FC3266)
 I (D:\D2\keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (D:\D2\keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
@@ -359,8 +359,8 @@ I (.\FreeRTOS\portmacro.h)(0x573F3A17)
 I (.\FreeRTOS\include\mpu_wrappers.h)(0x573F3A16)
 I (.\FreeRTOS\include\task.h)(0x573F3A16)
 I (.\FreeRTOS\include\list.h)(0x573F3A16)
-F (.\SYSTEM\uart.c)(0x6A197C9A)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\RTE -I.\RTE\Device\STM32F407ZE -I.\HARDWARE -I.\USER -I.\SYSTEM -I.\FreeRTOS -I.\FreeRTOS\include-I D:\share\Smart_Door_Lock\RTE-I D:\share\Smart_Door_Lock\RTE\Device\STM32F407ZE-I D:\D2\keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o .\uart.o --omf_browse .\uart.crf --depend .\uart.d)
-I (SYSTEM\uart.h)(0x6A196E35)
+F (.\SYSTEM\uart.c)(0x6A1A4F91)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\RTE -I.\RTE\Device\STM32F407ZE -I.\HARDWARE -I.\USER -I.\SYSTEM -I.\FreeRTOS -I.\FreeRTOS\include-I D:\share\Smart_Door_Lock\RTE-I D:\share\Smart_Door_Lock\RTE\Device\STM32F407ZE-I D:\D2\keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o .\uart.o --omf_browse .\uart.crf --depend .\uart.d)
+I (SYSTEM\uart.h)(0x6A1A5039)
 I (D:\D2\keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h)(0x69E88ED0)
 I (D:\D2\keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cm4.h)(0x53FC31DA)
 I (D:\D2\keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)

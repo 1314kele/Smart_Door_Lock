@@ -240,6 +240,14 @@ void parse_cmd(void)
 			uart2_puts("Hello from UART2!\r\n");
 			printf("[UART2] Echo test done.\r\n");
 		}
+		else if(strstr((const char *)uart_buf,"send ")){
+			char *p = (char *)uart_buf + 5;
+			printf("[WiFi] Sending to WiFi: %s\r\n", p);
+			while(*p && *p != '*') { uart3_putc(*p++); }
+			uart3_putc('\r');
+			uart3_putc('\n');
+			printf("[WiFi] Message sent!\r\n");
+		}
 		else if(strstr((const char *)uart_buf,"save_card")){
 			extern uint32_t last_card_uid;
 			if(last_card_uid == 0) {
@@ -345,6 +353,19 @@ static void wifi_send_at(char *str)
 {
 	wifi_clear_buf();
 	uart3_puts(str);
+}
+
+void wifi_notify(const char *msg)
+{
+	if(msg == NULL) return;
+	
+	printf("[WiFi] Notifying: %s\r\n", msg);
+	
+	uart3_puts(msg);
+	uart3_putc('\r');
+	uart3_putc('\n');
+	
+	printf("[WiFi] Notification sent!\r\n");
 }
 
 void wifi_auto_connect(void)

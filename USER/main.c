@@ -633,6 +633,7 @@ void vManageTask(void* pvParameters)
                                     oled_show_string(0, 2, "Saved!");
                                     xSemaphoreGive(oledMutex);
                                 }
+                                wifi_notify("PASSWORD:ADD:SUCCESS");
                             } else {
                                 if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                                     oled_clear();
@@ -673,6 +674,7 @@ void vManageTask(void* pvParameters)
                                     oled_show_string(0, 2, hex_str);
                                     xSemaphoreGive(oledMutex);
                                 }
+                                wifi_notify("RFID:ADD:SUCCESS");
                             } else {
                                 if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                                     oled_clear();
@@ -698,6 +700,7 @@ void vManageTask(void* pvParameters)
                             oled_show_string(0, 2, "Enroll OK!");
                             xSemaphoreGive(oledMutex);
                         }
+                        wifi_notify("FINGER:ADD:SUCCESS");
                     } else {
                         if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                             oled_clear();
@@ -733,12 +736,15 @@ void vManageTask(void* pvParameters)
                                 switch(current_manage_menu) {
                                     case MENU_MANAGE_FINGER:
                                         as608_delete_finger(selected_index);
+                                        wifi_notify("FINGER:DELETE:SUCCESS");
                                         break;
                                     case MENU_MANAGE_PWD:
                                         flash_delete_password(selected_index);
+                                        wifi_notify("PASSWORD:DELETE:SUCCESS");
                                         break;
                                     case MENU_MANAGE_RFID:
                                         flash_delete_card(selected_index);
+                                        wifi_notify("RFID:DELETE:SUCCESS");
                                         break;
                                 }
                                 if(selected_index >= max_items - 1) {

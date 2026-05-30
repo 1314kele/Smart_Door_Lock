@@ -17,5 +17,6 @@ void uart3_puts(const char *s);
 void parse_cmd(void);
 void parse_bl_cmd(void);
 void wifi_auto_connect(void);
+void wifi_notify(const char *msg);
 
 #endif

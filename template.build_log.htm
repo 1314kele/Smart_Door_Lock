@@ -33,13 +33,17 @@ USER\main.c(247): warning:  #177-D: variable "unlock_req" was declared but never
       UnlockRequest unlock_req;
 USER\main.c(248): warning:  #177-D: variable "unlock_result" was declared but never referenced
       UnlockResult unlock_result;
-USER\main.c(1202): warning:  #1-D: last line of file ends without a newline
+USER\main.c(1208): warning:  #1-D: last line of file ends without a newline
   }
 USER\main.c: 4 warnings, 0 errors
+compiling uart.c...
+SYSTEM\uart.c(352): warning:  #177-D: function "wifi_send_at" was declared but never referenced
+  static void wifi_send_at(char *str)
+SYSTEM\uart.c: 1 warning, 0 errors
 linking...
-Program Size: Code=33620 RO-data=2260 RW-data=376 ZI-data=78544  
+Program Size: Code=34008 RO-data=2260 RW-data=376 ZI-data=78544  
 FromELF: creating hex file...
-".\template.axf" - 0 Error(s), 4 Warning(s).
+".\template.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
