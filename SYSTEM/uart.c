@@ -320,43 +320,142 @@ static int32_t wifi_find_str(char *str, uint32_t timeout_ms)
 	return -1;
 }
 
-static void wifi_send_at(char *str)
+static void wifi_clear_buf(void)
 {
 	memset((char *)bl_buf, 0, sizeof(bl_buf));
 	bl_len = 0;
 	bl_flag = 0;
+}
+
+static int32_t wifi_wait_response(char *expected, uint32_t timeout_ms, char *error_str)
+{
+	int32_t ret;
+	ret = wifi_find_str(expected, timeout_ms);
+	if(ret == 0) {
+		printf("[WiFi] Found: %s\r\n", expected);
+		return 0;
+	} else {
+		printf("[WiFi] %s (expected: %s)\r\n", error_str, expected);
+		printf("[WiFi] Buffer content: %s\r\n", bl_buf);
+		return -1;
+	}
+}
+
+static void wifi_send_at(char *str)
+{
+	wifi_clear_buf();
 	uart3_puts(str);
 }
 
 void wifi_auto_connect(void)
 {
 	char cmd[256];
-	printf("WiFi setup start...\r\n");
+	printf("\r\n========================================\r\n");
+	printf("[WiFi] Starting WiFi and TCP connection\r\n");
+	printf("[WiFi] SSID: %s\r\n", wifi_ssid);
+	printf("[WiFi] TCP Server: 10.184.15.53:8000\r\n");
+	printf("========================================\r\n");
 
-	wifi_send_at("+++");
-	vTaskDelay(pdMS_TO_TICKS(1500));
+	wifi_clear_buf();
+	printf("[WiFi] Step 1: Exit transparent mode\r\n");
+	uart3_puts("+++");
+	vTaskDelay(pdMS_TO_TICKS(2000));
 
-	wifi_send_at("ATE0\r\n");
-	wifi_find_str("OK", 2000);
+	wifi_clear_buf();
+	printf("[WiFi] Step 2: Reset module\r\n");
+	uart3_puts("AT+RST\r\n");
+	vTaskDelay(pdMS_TO_TICKS(3000));
+	if(wifi_wait_response("ready", 5000, "Module reset failed") != 0) {
+		printf("[WiFi] WARNING: No 'ready' response, continuing...\r\n");
+	}
 
-	wifi_send_at("AT+CWMODE_CUR=1\r\n");
-	wifi_find_str("OK", 2000);
+	wifi_clear_buf();
+	printf("[WiFi] Step 3: Disable echo\r\n");
+	uart3_puts("ATE0\r\n");
+	if(wifi_wait_response("OK", 2000, "Disable echo failed") != 0) return;
 
-	snprintf(cmd, sizeof(cmd), "AT+CWJAP_CUR=\"%s\",\"%s\"\r\n", wifi_ssid, wifi_pass);
-	wifi_send_at(cmd);
-	printf("WiFi connecting: %s ...\r\n", wifi_ssid);
-	if(wifi_find_str("OK", 10000)) { printf("WiFi FAIL!\r\n"); return; }
+	wifi_clear_buf();
+	printf("[WiFi] Step 4: Set mixed mode (AP+STA)\r\n");
+	uart3_puts("AT+CWMODE=3\r\n");
+	if(wifi_wait_response("OK", 3000, "Set mode failed") != 0) return;
 
-	snprintf(cmd, sizeof(cmd), "AT+CIPSTART=\"TCP\",\"10.149.55.96\",8000\r\n");
-	wifi_send_at(cmd);
-	printf("TCP connecting...\r\n");
-	if(wifi_find_str("CONNECT", 10000)) { printf("TCP FAIL!\r\n"); return; }
+	wifi_clear_buf();
+	printf("[WiFi] Step 5: Connect to WiFi\r\n");
+	snprintf(cmd, sizeof(cmd), "AT+CWJAP=\"%s\",\"%s\"\r\n", wifi_ssid, wifi_pass);
+	uart3_puts(cmd);
+	printf("[WiFi] Connecting to %s...\r\n", wifi_ssid);
+	if(wifi_wait_response("WIFI GOT IP", 15000, "WiFi connection failed") != 0) {
+		if(strstr((const char *)bl_buf, "FAIL")) {
+			printf("[WiFi] ERROR: WiFi authentication failed or wrong password\r\n");
+		} else if(strstr((const char *)bl_buf, "DISCONNECT")) {
+			printf("[WiFi] ERROR: WiFi disconnected during connection\r\n");
+		}
+		return;
+	}
+	printf("[WiFi] WiFi connected successfully!\r\n");
+	printf("[WiFi] Waiting for network to stabilize...\r\n");
+	vTaskDelay(pdMS_TO_TICKS(3000));
 
-	wifi_send_at("AT+CIPMODE=1\r\n");
-	wifi_find_str("OK", 3000);
+	wifi_clear_buf();
+	printf("[WiFi] Step 6: Close any existing TCP connection\r\n");
+	uart3_puts("AT+CIPCLOSE\r\n");
+	vTaskDelay(pdMS_TO_TICKS(1000));
 
-	wifi_send_at("AT+CIPSEND\r\n");
-	printf("WiFi setup done!\r\n");
+	printf("[WiFi] Step 7: Connect to TCP server\r\n");
+	snprintf(cmd, sizeof(cmd), "AT+CIPSTART=\"TCP\",\"10.184.15.53\",8000\r\n");
+	printf("[WiFi] Connecting to TCP server 10.184.15.53:8000...\r\n");
+
+	{
+		int32_t tcp_retry;
+		int32_t tcp_ok = 0;
+		for(tcp_retry = 0; tcp_retry < 3; tcp_retry++) {
+			wifi_clear_buf();
+			uart3_puts(cmd);
+			printf("[WiFi] TCP attempt %ld/3\r\n", tcp_retry + 1);
+			if(wifi_wait_response("CONNECT", 10000, NULL) == 0) {
+				printf("[WiFi] TCP connected successfully!\r\n");
+				tcp_ok = 1;
+				break;
+			}
+			if(strstr((const char *)bl_buf, "ALREADY CONNECTED")) {
+				printf("[WiFi] Already connected, continuing...\r\n");
+				tcp_ok = 1;
+				break;
+			}
+			if(strstr((const char *)bl_buf, "CONNECT FAIL")) {
+				printf("[WiFi] ERROR: TCP connection refused by server\r\n");
+				tcp_ok = 0;
+				break;
+			}
+			if(strstr((const char *)bl_buf, "busy")) {
+				printf("[WiFi] Module busy, retrying in 3 seconds...\r\n");
+				vTaskDelay(pdMS_TO_TICKS(3000));
+				continue;
+			}
+			printf("[WiFi] TCP connection timeout, retrying in 2 seconds...\r\n");
+			vTaskDelay(pdMS_TO_TICKS(2000));
+		}
+		if(!tcp_ok) {
+			printf("[WiFi] ERROR: TCP connection failed after %ld attempts\r\n", tcp_retry);
+			printf("[WiFi] Buffer content: %s\r\n", bl_buf);
+			return;
+		}
+	}
+
+	wifi_clear_buf();
+	printf("[WiFi] Step 8: Enable transparent mode\r\n");
+	uart3_puts("AT+CIPMODE=1\r\n");
+	if(wifi_wait_response("OK", 3000, "Enable transparent mode failed") != 0) return;
+
+	wifi_clear_buf();
+	printf("[WiFi] Step 9: Start sending\r\n");
+	uart3_puts("AT+CIPSEND\r\n");
+	vTaskDelay(pdMS_TO_TICKS(500));
+
+	printf("\r\n========================================\r\n");
+	printf("[WiFi] WiFi setup completed successfully!\r\n");
+	printf("[WiFi] Ready to receive commands via TCP\r\n");
+	printf("========================================\r\n");
 }
 
 void parse_bl_cmd(void)
