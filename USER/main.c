@@ -42,6 +42,7 @@ volatile uint8_t manage_mode_active = 0;
 volatile uint8_t manage_submenu_active = 0; // 是否进入了管理子菜单
 volatile uint8_t unlock_mode_active = 0; // 是否进入了解锁模式
 volatile uint8_t selected_unlock_mode = 0; // 当前选择的解锁方式 (0=none, 1=finger, 2=password, 3=rfid)
+volatile uint8_t admin_pwd_mode_active = 0; // 是否正在输入管理密码
 
 typedef enum {
     MODE_FINGER = 0,
@@ -53,10 +54,11 @@ typedef enum {
 typedef enum {
     MENU_MAIN = 0,
     MENU_UNLOCK = 1,
-    MENU_MANAGE = 2,
-    MENU_MANAGE_FINGER = 3,
-    MENU_MANAGE_PWD = 4,
-    MENU_MANAGE_RFID = 5
+    MENU_MANAGE_PASS = 2,
+    MENU_MANAGE = 3,
+    MENU_MANAGE_FINGER = 4,
+    MENU_MANAGE_PWD = 5,
+    MENU_MANAGE_RFID = 6
 } MenuState;
 
 const char* mode_names[] = {
@@ -239,6 +241,7 @@ void app_task_init(void* pvParameters)
 void vKeyMenuTask(void* pvParameters)
 {
     char key;
+    char dummy; // 用于清空队列的临时变量
     uint8_t selected_item = 0;
     MenuState menu_state = MENU_MAIN;
     UnlockRequest unlock_req;
@@ -246,6 +249,8 @@ void vKeyMenuTask(void* pvParameters)
     uint8_t max_items = 0;
     char card_str[10];
     uint8_t unlock_in_progress = 0;
+    char admin_pwd_buf[17] = {0};
+    uint8_t admin_pwd_index = 0;
     
     for(;;)
     {
@@ -305,14 +310,79 @@ void vKeyMenuTask(void* pvParameters)
                         }
                     } else if(key == '2') {
                         selected_item = 0;
-                        menu_state = MENU_MANAGE;
-                        manage_mode_enable();
+                        menu_state = MENU_MANAGE_PASS;
+                        admin_pwd_mode_active = 1; // 标记正在输入管理密码
+                        admin_pwd_index = 0;
+                        memset(admin_pwd_buf, 0, sizeof(admin_pwd_buf));
+                        // 清空 keyQueue，避免之前的按键影响
+                        while(xQueueReceive(keyQueue, &dummy, 0) == pdTRUE);
                         if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
                             oled_clear();
-                            oled_show_string(0, 0, "Manage Mode:");
-                            oled_show_string(0, 2, "1.Finger");
-                            oled_show_string(0, 4, "2.Password");
-                            oled_show_string(0, 6, "3.RFID *-Back");
+                            oled_show_string(0, 0, "Enter Admin Pwd:");
+                            oled_show_string(0, 2, "");
+                            oled_show_string(0, 4, "#-OK *-Cancel");
+                            xSemaphoreGive(oledMutex);
+                        }
+                    }
+                    break;
+                    
+                case MENU_MANAGE_PASS:
+                    if(key == '*') {
+                        // 取消，返回主菜单
+                        admin_pwd_mode_active = 0; // 清除管理密码输入状态
+                        menu_state = MENU_MAIN;
+                        admin_pwd_index = 0;
+                        memset(admin_pwd_buf, 0, sizeof(admin_pwd_buf));
+                        if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                            oled_clear();
+                            oled_show_string(0, 0, "System Ready!");
+                            oled_show_string(0, 2, "1-Unlock");
+                            oled_show_string(0, 4, "2-Manage");
+                            oled_show_string(0, 6, "Press 1 or 2");
+                            xSemaphoreGive(oledMutex);
+                        }
+                    } else if(key == '#') {
+                        // 验证密码
+                        admin_pwd_buf[admin_pwd_index] = '\0';
+                        if(strcmp(admin_pwd_buf, flash_get_admin_password()) == 0) {
+                            // 密码正确，进入管理模式
+                            admin_pwd_mode_active = 0; // 清除管理密码输入状态
+                            menu_state = MENU_MANAGE;
+                            manage_mode_enable();
+                            if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                                oled_clear();
+                                oled_show_string(0, 0, "Manage Mode:");
+                                oled_show_string(0, 2, "1.Finger");
+                                oled_show_string(0, 4, "2.Password");
+                                oled_show_string(0, 6, "3.RFID *-Back");
+                                xSemaphoreGive(oledMutex);
+                            }
+                        } else {
+                            // 密码错误
+                            if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                                oled_clear();
+                                oled_show_string(0, 0, "Wrong Password!");
+                                xSemaphoreGive(oledMutex);
+                            }
+                            vTaskDelay(pdMS_TO_TICKS(1000));
+                            // 重新输入密码
+                            admin_pwd_index = 0;
+                            memset(admin_pwd_buf, 0, sizeof(admin_pwd_buf));
+                            if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                                oled_clear();
+                                oled_show_string(0, 0, "Enter Admin Pwd:");
+                                oled_show_string(0, 2, "");
+                                oled_show_string(0, 4, "#-OK *-Cancel");
+                                xSemaphoreGive(oledMutex);
+                            }
+                        }
+                    } else if(key >= '0' && key <= '9' && admin_pwd_index < 16) {
+                        admin_pwd_buf[admin_pwd_index++] = key;
+                        if(xSemaphoreTake(oledMutex, portMAX_DELAY)) {
+                            oled_clear();
+                            oled_show_string(0, 0, "Enter Admin Pwd:");
+                            oled_show_string(0, 2, admin_pwd_buf);
+                            oled_show_string(0, 4, "#-OK *-Cancel");
                             xSemaphoreGive(oledMutex);
                         }
                     }
@@ -826,6 +896,9 @@ void vPwdTask(void* pvParameters)
             printf("[PwdTask] Conditions not met, suspending...\r\n");
             vTaskSuspend(NULL);
             printf("[PwdTask] Resumed!\r\n");
+            // 每次恢复时清空缓冲区，确保干净
+            memset(input_buf, 0, sizeof(input_buf));
+            index = 0;
             continue;
         }
         
@@ -913,6 +986,10 @@ void vKeyTask(void* pvParameters)
                     printf("[vKeyTask] Sending to keyMenuQueue\r\n");
                     xQueueSend(keyMenuQueue, &key_val, 10);
                 }
+            } else if(admin_pwd_mode_active) {
+                // 正在输入管理密码，只发送到keyMenuQueue
+                printf("[vKeyTask] Sending to keyMenuQueue (admin pwd mode)\r\n");
+                xQueueSend(keyMenuQueue, &key_val, 10);
             } else if(keyboard_mode_active) {
                 // 在键盘模式下，只发送到keyQueue用于解锁任务
                 printf("[vKeyTask] Sending to keyQueue (keyboard mode)\r\n");

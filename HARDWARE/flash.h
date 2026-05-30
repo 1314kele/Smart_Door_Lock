@@ -15,6 +15,7 @@ typedef struct {
     uint32_t cards[MAX_CARDS];
     uint8_t password_count;
     uint8_t card_count;
+    char admin_password[PWD_LENGTH + 1];
 } flash_data_t;
 
 void flash_init(void);
@@ -36,5 +37,9 @@ void flash_clear_all_cards(void);
 extern uint32_t saved_card_uid;
 uint32_t flash_read_card_uid(void);
 void flash_save_card_uid(uint32_t uid);
+
+// 管理密码
+char* flash_get_admin_password(void);
+void flash_set_admin_password(const char* pwd);
 
 #endif

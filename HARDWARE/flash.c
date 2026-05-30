@@ -33,6 +33,11 @@ void flash_init(void)
         if(data_valid) {
             // 有效，直接复制
             memcpy(&flash_data, p, sizeof(flash_data_t));
+            // 如果管理密码未设置，设置默认密码
+            if(flash_data.admin_password[0] == 0 || flash_data.admin_password[0] == 0xFF) {
+                strcpy(flash_data.admin_password, "123456");
+                flash_save_all();
+            }
         } else {
             // 数据无效，当作旧格式处理
             // 先尝试从旧格式恢复卡号
@@ -40,6 +45,7 @@ void flash_init(void)
             flash_data.magic = FLASH_MAGIC;
             flash_data.password_count = 0;
             flash_data.card_count = 0;
+            strcpy(flash_data.admin_password, "123456"); // 默认管理密码
             
             // 尝试从 raw_addr[1] 读取旧卡号（旧格式可能是 magic + card_uid）
             old_card_uid = raw_addr[1];
@@ -57,6 +63,7 @@ void flash_init(void)
         flash_data.magic = FLASH_MAGIC;
         flash_data.password_count = 0;
         flash_data.card_count = 0;
+        strcpy(flash_data.admin_password, "123456"); // 默认管理密码
         
         // 如果旧的格式是 magic + carduid，尝试读取
         if(raw_addr[0] != 0xFFFFFFFF) { // 检查是否有数据
@@ -259,4 +266,17 @@ void flash_save_card_uid(uint32_t uid)
         flash_save_all();
     }
     saved_card_uid = uid;
+}
+
+char* flash_get_admin_password(void)
+{
+    return flash_data.admin_password;
+}
+
+void flash_set_admin_password(const char* pwd)
+{
+    if(strlen(pwd) <= PWD_LENGTH) {
+        strcpy(flash_data.admin_password, pwd);
+        flash_save_all();
+    }
 }
