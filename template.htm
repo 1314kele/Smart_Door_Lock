@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sat May 30 10:49:47 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jun 01 20:22:08 2026
 <BR><P>
 <H3>Maximum Stack Usage =        384 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-vUartCmdTask &rArr; parse_cmd &rArr; wifi_auto_connect &rArr; wifi_wait_response &rArr; wifi_find_str &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+app_task_init &rArr; wifi_auto_connect &rArr; wifi_wait_response &rArr; wifi_find_str &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 <P>
 <H3>
 Mutually Recursive functions
@@ -455,9 +455,9 @@ Global Symbols
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataFromQueue
 </UL>
 
-<P><STRONG><a name="[bf]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
+<P><STRONG><a name="[c0]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
 </UL>
 
 <P><STRONG><a name="[140]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
@@ -475,14 +475,14 @@ Global Symbols
 <P><STRONG><a name="[72]"></a>__aeabi_memclr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
+<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_clear_buf
 </UL>
 
-<P><STRONG><a name="[b8]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
+<P><STRONG><a name="[b9]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
@@ -495,19 +495,19 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
 
-<P><STRONG><a name="[eb]"></a>strstr</STRONG> (Thumb, 36 bytes, Stack size 12 bytes, strstr.o(.text))
+<P><STRONG><a name="[ec]"></a>strstr</STRONG> (Thumb, 36 bytes, Stack size 12 bytes, strstr.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = strstr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_find_str
 </UL>
 
-<P><STRONG><a name="[c6]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_password
+<P><STRONG><a name="[c7]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_password
 </UL>
 
 <P><STRONG><a name="[122]"></a>strcmp</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, strcmp.o(.text))
@@ -516,10 +516,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 </UL>
 
-<P><STRONG><a name="[c7]"></a>strcpy</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, strcpy.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_password
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_password
+<P><STRONG><a name="[c8]"></a>strcpy</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, strcpy.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_password
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_password
 </UL>
 
 <P><STRONG><a name="[75]"></a>__aeabi_uldivmod</STRONG> (Thumb, 98 bytes, Stack size 40 bytes, uldiv.o(.text), UNUSED)
@@ -602,8 +602,8 @@ Global Symbols
 <LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[cc]"></a>FLASH_ClearFlag</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_flash.o(i.FLASH_ClearFlag))
-<BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<P><STRONG><a name="[cd]"></a>FLASH_ClearFlag</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_flash.o(i.FLASH_ClearFlag))
+<BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
 </UL>
 
 <P><STRONG><a name="[7c]"></a>FLASH_EraseSector</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, stm32f4xx_flash.o(i.FLASH_EraseSector))
@@ -611,15 +611,15 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_WaitForLastOperation
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
 </UL>
 
 <P><STRONG><a name="[7f]"></a>FLASH_GetStatus</STRONG> (Thumb, 80 bytes, Stack size 0 bytes, stm32f4xx_flash.o(i.FLASH_GetStatus))
 <BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_WaitForLastOperation
 </UL>
 
-<P><STRONG><a name="[cd]"></a>FLASH_Lock</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, stm32f4xx_flash.o(i.FLASH_Lock))
-<BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<P><STRONG><a name="[ce]"></a>FLASH_Lock</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, stm32f4xx_flash.o(i.FLASH_Lock))
+<BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
 </UL>
 
 <P><STRONG><a name="[7e]"></a>FLASH_ProgramWord</STRONG> (Thumb, 74 bytes, Stack size 12 bytes, stm32f4xx_flash.o(i.FLASH_ProgramWord))
@@ -627,11 +627,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_WaitForLastOperation
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
 </UL>
 
-<P><STRONG><a name="[cb]"></a>FLASH_Unlock</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_flash.o(i.FLASH_Unlock))
-<BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<P><STRONG><a name="[cc]"></a>FLASH_Unlock</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_flash.o(i.FLASH_Unlock))
+<BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
 </UL>
 
 <P><STRONG><a name="[7d]"></a>FLASH_WaitForLastOperation</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, stm32f4xx_flash.o(i.FLASH_WaitForLastOperation))
@@ -643,33 +643,33 @@ Global Symbols
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_EraseSector
 </UL>
 
-<P><STRONG><a name="[d6]"></a>GPIO_Init</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(i.GPIO_Init))
+<P><STRONG><a name="[d7]"></a>GPIO_Init</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(i.GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
 </UL>
 
 <P><STRONG><a name="[11b]"></a>GPIO_PinAFConfig</STRONG> (Thumb, 70 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(i.GPIO_PinAFConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_PinAFConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
 </UL>
 
 <P><STRONG><a name="[97]"></a>GPIO_ReadInputDataBit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(i.GPIO_ReadInputDataBit))
-<BR><BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_col
+<BR><BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_col
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_RW
 </UL>
 
 <P><STRONG><a name="[83]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(i.GPIO_ResetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_row_low
+<BR><BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_row_low
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_RW
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_WriteReg
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_Reset
@@ -681,10 +681,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[81]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(i.GPIO_SetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_row_low
+<BR><BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
+<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_row_low
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_RW
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_WriteReg
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_Reset
@@ -698,30 +698,30 @@ Global Symbols
 <P><STRONG><a name="[11d]"></a>NVIC_Init</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, misc.o(i.NVIC_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
 </UL>
 
-<P><STRONG><a name="[da]"></a>NVIC_PriorityGroupConfig</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, misc.o(i.NVIC_PriorityGroupConfig))
+<P><STRONG><a name="[db]"></a>NVIC_PriorityGroupConfig</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, misc.o(i.NVIC_PriorityGroupConfig))
 <BR><BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d5]"></a>RCC_AHB1PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
+<P><STRONG><a name="[d6]"></a>RCC_AHB1PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd))
+<BR><BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
 </UL>
 
 <P><STRONG><a name="[11f]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_APB1PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
+<BR><BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
 </UL>
 
 <P><STRONG><a name="[11a]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
+<BR><BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
 </UL>
 
 <P><STRONG><a name="[a1]"></a>RCC_GetClocksFreq</STRONG> (Thumb, 214 bytes, Stack size 20 bytes, stm32f4xx_rcc.o(i.RCC_GetClocksFreq))
@@ -819,17 +819,19 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[11e]"></a>USART_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_usart.o(i.USART_Cmd))
-<BR><BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
+<BR><BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
 </UL>
 
-<P><STRONG><a name="[bd]"></a>USART_GetFlagStatus</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_usart.o(i.USART_GetFlagStatus))
-<BR><BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
+<P><STRONG><a name="[b5]"></a>USART_GetFlagStatus</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_usart.o(i.USART_GetFlagStatus))
+<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putc
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
+<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
 </UL>
 
 <P><STRONG><a name="[9d]"></a>USART_GetITStatus</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, stm32f4xx_usart.o(i.USART_GetITStatus))
@@ -842,8 +844,8 @@ Global Symbols
 <P><STRONG><a name="[11c]"></a>USART_ITConfig</STRONG> (Thumb, 74 bytes, Stack size 20 bytes, stm32f4xx_usart.o(i.USART_ITConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = USART_ITConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
 </UL>
 
 <P><STRONG><a name="[a0]"></a>USART_Init</STRONG> (Thumb, 204 bytes, Stack size 48 bytes, stm32f4xx_usart.o(i.USART_Init))
@@ -851,22 +853,24 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetClocksFreq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
 </UL>
 
 <P><STRONG><a name="[9e]"></a>USART_ReceiveData</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_usart.o(i.USART_ReceiveData))
-<BR><BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
+<LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 <LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
+<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
 </UL>
 
-<P><STRONG><a name="[c0]"></a>USART_SendData</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f4xx_usart.o(i.USART_SendData))
-<BR><BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
+<P><STRONG><a name="[c1]"></a>USART_SendData</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f4xx_usart.o(i.USART_SendData))
+<BR><BR>[Called By]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putc
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
 </UL>
 
 <P><STRONG><a name="[a2]"></a>__0printf$8</STRONG> (Thumb, 22 bytes, Stack size 24 bytes, printf8.o(i.__0printf$8), UNUSED)
@@ -879,27 +883,26 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_notify
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyTask
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_enable
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_enable
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_enable
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_enable
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_wait_response
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
 </UL>
 
 <P><STRONG><a name="[a4]"></a>__0snprintf$8</STRONG> (Thumb, 36 bytes, Stack size 32 bytes, printf8.o(i.__0snprintf$8), UNUSED)
@@ -911,7 +914,7 @@ Global Symbols
 <P><STRONG><a name="[130]"></a>__2snprintf</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, printf8.o(i.__0snprintf$8))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __2snprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
 </UL>
 
 <P><STRONG><a name="[a5]"></a>__0sprintf$8</STRONG> (Thumb, 34 bytes, Stack size 24 bytes, printf8.o(i.__0sprintf$8), UNUSED)
@@ -934,15 +937,16 @@ Global Symbols
 
 <P><STRONG><a name="[14e]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[6b]"></a>app_task_init</STRONG> (Thumb, 408 bytes, Stack size 16 bytes, main.o(i.app_task_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = app_task_init &rArr; xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<P><STRONG><a name="[6b]"></a>app_task_init</STRONG> (Thumb, 412 bytes, Stack size 16 bytes, main.o(i.app_task_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = app_task_init &rArr; wifi_auto_connect &rArr; wifi_wait_response &rArr; wifi_find_str &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericCreate
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
@@ -951,101 +955,103 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
-<P><STRONG><a name="[b3]"></a>as608_clear_all</STRONG> (Thumb, 104 bytes, Stack size 32 bytes, as608.o(i.as608_clear_all))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = as608_clear_all &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
+<P><STRONG><a name="[b4]"></a>as608_clear_all</STRONG> (Thumb, 282 bytes, Stack size 56 bytes, as608.o(i.as608_clear_all))
+<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = as608_clear_all &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ReceiveData
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
 </UL>
 
-<P><STRONG><a name="[b6]"></a>as608_delete_finger</STRONG> (Thumb, 146 bytes, Stack size 48 bytes, as608.o(i.as608_delete_finger))
-<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = as608_delete_finger &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
+<P><STRONG><a name="[b7]"></a>as608_delete_finger</STRONG> (Thumb, 324 bytes, Stack size 72 bytes, as608.o(i.as608_delete_finger))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = as608_delete_finger &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ReceiveData
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 </UL>
 
-<P><STRONG><a name="[b7]"></a>as608_enroll_finger</STRONG> (Thumb, 620 bytes, Stack size 128 bytes, as608.o(i.as608_enroll_finger))
+<P><STRONG><a name="[b8]"></a>as608_enroll_finger</STRONG> (Thumb, 620 bytes, Stack size 128 bytes, as608.o(i.as608_enroll_finger))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = as608_enroll_finger &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
+<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 </UL>
 
-<P><STRONG><a name="[ba]"></a>as608_handshake</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, as608.o(i.as608_handshake))
+<P><STRONG><a name="[bc]"></a>as608_handshake</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, as608.o(i.as608_handshake))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = as608_handshake &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
+<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
 </UL>
 
-<P><STRONG><a name="[bb]"></a>as608_init</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, as608.o(i.as608_init))
+<P><STRONG><a name="[bd]"></a>as608_init</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, as608.o(i.as608_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = as608_init &rArr; delay_ms &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[be]"></a>as608_search_finger</STRONG> (Thumb, 248 bytes, Stack size 96 bytes, as608.o(i.as608_search_finger))
+<P><STRONG><a name="[bf]"></a>as608_search_finger</STRONG> (Thumb, 248 bytes, Stack size 96 bytes, as608.o(i.as608_search_finger))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = as608_search_finger &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_send_cmd
+<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_receve_reply
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
 </UL>
 
-<P><STRONG><a name="[db]"></a>delay_init</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, delay.o(i.delay_init))
+<P><STRONG><a name="[dc]"></a>delay_init</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, delay.o(i.delay_init))
 <BR><BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[bc]"></a>delay_ms</STRONG> (Thumb, 92 bytes, Stack size 32 bytes, delay.o(i.delay_ms))
+<P><STRONG><a name="[be]"></a>delay_ms</STRONG> (Thumb, 92 bytes, Stack size 32 bytes, delay.o(i.delay_ms))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = delay_ms &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
+<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_init
+<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_init
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_feedback
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_feedback
 </UL>
 
 <P><STRONG><a name="[82]"></a>delay_us</STRONG> (Thumb, 90 bytes, Stack size 32 bytes, delay.o(i.delay_us))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
+<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WriteByte
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitAck
@@ -1053,38 +1059,38 @@ Global Symbols
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_Start
 </UL>
 
-<P><STRONG><a name="[c3]"></a>flash_add_card</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, flash.o(i.flash_add_card))
+<P><STRONG><a name="[c4]"></a>flash_add_card</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, flash.o(i.flash_add_card))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = flash_add_card &rArr; flash_save_all &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_card_uid
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_card_uid
 </UL>
 
-<P><STRONG><a name="[c5]"></a>flash_add_password</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, flash.o(i.flash_add_password))
+<P><STRONG><a name="[c6]"></a>flash_add_password</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, flash.o(i.flash_add_password))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = flash_add_password &rArr; flash_save_all &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 </UL>
 
-<P><STRONG><a name="[c8]"></a>flash_delete_card</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, flash.o(i.flash_delete_card))
+<P><STRONG><a name="[c9]"></a>flash_delete_card</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, flash.o(i.flash_delete_card))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = flash_delete_card &rArr; flash_save_all &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 </UL>
 
-<P><STRONG><a name="[c9]"></a>flash_delete_password</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, flash.o(i.flash_delete_password))
+<P><STRONG><a name="[ca]"></a>flash_delete_password</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, flash.o(i.flash_delete_password))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = flash_delete_password &rArr; flash_save_all &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 </UL>
@@ -1093,7 +1099,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 </UL>
 
-<P><STRONG><a name="[e3]"></a>flash_get_card</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, flash.o(i.flash_get_card))
+<P><STRONG><a name="[e4]"></a>flash_get_card</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, flash.o(i.flash_get_card))
 <BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
@@ -1101,7 +1107,7 @@ Global Symbols
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e2]"></a>flash_get_card_count</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, flash.o(i.flash_get_card_count))
+<P><STRONG><a name="[e3]"></a>flash_get_card_count</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, flash.o(i.flash_get_card_count))
 <BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
@@ -1109,7 +1115,7 @@ Global Symbols
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e5]"></a>flash_get_password</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, flash.o(i.flash_get_password))
+<P><STRONG><a name="[e6]"></a>flash_get_password</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, flash.o(i.flash_get_password))
 <BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
@@ -1117,7 +1123,7 @@ Global Symbols
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e4]"></a>flash_get_password_count</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, flash.o(i.flash_get_password_count))
+<P><STRONG><a name="[e5]"></a>flash_get_password_count</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, flash.o(i.flash_get_password_count))
 <BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
@@ -1125,83 +1131,83 @@ Global Symbols
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ca]"></a>flash_init</STRONG> (Thumb, 360 bytes, Stack size 32 bytes, flash.o(i.flash_init))
+<P><STRONG><a name="[cb]"></a>flash_init</STRONG> (Thumb, 360 bytes, Stack size 32 bytes, flash.o(i.flash_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = flash_init &rArr; flash_save_all &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ce]"></a>flash_save_card_uid</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, flash.o(i.flash_save_card_uid))
+<P><STRONG><a name="[cf]"></a>flash_save_card_uid</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, flash.o(i.flash_save_card_uid))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = flash_save_card_uid &rArr; flash_add_card &rArr; flash_save_all &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_card
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_card
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_all
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
 </UL>
 
 <P><STRONG><a name="[5f]"></a>fputc</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, uart.o(i.fputc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = fputc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> printf8.o(i.__0printf$8)
 </UL>
-<P><STRONG><a name="[cf]"></a>key_feedback</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, main.o(i.key_feedback))
+<P><STRONG><a name="[d0]"></a>key_feedback</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, main.o(i.key_feedback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = key_feedback &rArr; delay_ms &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 </UL>
 
-<P><STRONG><a name="[d0]"></a>keyboard_mode_disable</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, main.o(i.keyboard_mode_disable))
+<P><STRONG><a name="[d1]"></a>keyboard_mode_disable</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, main.o(i.keyboard_mode_disable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = keyboard_mode_disable &rArr; vTaskResume &rArr; prvTaskIsTaskSuspended
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
+<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 </UL>
 
-<P><STRONG><a name="[d2]"></a>keyboard_mode_enable</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, main.o(i.keyboard_mode_enable))
+<P><STRONG><a name="[d3]"></a>keyboard_mode_enable</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, main.o(i.keyboard_mode_enable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = keyboard_mode_enable &rArr; __2printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 </UL>
 
-<P><STRONG><a name="[d4]"></a>keypad_init</STRONG> (Thumb, 160 bytes, Stack size 16 bytes, keypad.o(i.keypad_init))
+<P><STRONG><a name="[d5]"></a>keypad_init</STRONG> (Thumb, 160 bytes, Stack size 16 bytes, keypad.o(i.keypad_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = keypad_init &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d7]"></a>keypad_scan</STRONG> (Thumb, 86 bytes, Stack size 32 bytes, keypad.o(i.keypad_scan))
+<P><STRONG><a name="[d8]"></a>keypad_scan</STRONG> (Thumb, 116 bytes, Stack size 32 bytes, keypad.o(i.keypad_scan))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = keypad_scan &rArr; delay_ms &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_row_low
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_col
+<BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_row_low
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_col
 </UL>
 <BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyTask
 </UL>
 
-<P><STRONG><a name="[dc]"></a>led_init</STRONG> (Thumb, 150 bytes, Stack size 0 bytes, led.o(i.led_init))
+<P><STRONG><a name="[dd]"></a>led_init</STRONG> (Thumb, 150 bytes, Stack size 0 bytes, led.o(i.led_init))
 <BR><BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1209,39 +1215,39 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = main &rArr; vTaskStartScheduler &rArr; xTimerCreateTimerTask &rArr; xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
-<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_init
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_init
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_init
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_init
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_init
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[e7]"></a>manage_mode_disable</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, main.o(i.manage_mode_disable))
+<P><STRONG><a name="[e8]"></a>manage_mode_disable</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, main.o(i.manage_mode_disable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = manage_mode_disable &rArr; vTaskResume &rArr; prvTaskIsTaskSuspended
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
+<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 </UL>
 
-<P><STRONG><a name="[e8]"></a>manage_mode_enable</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, main.o(i.manage_mode_enable))
+<P><STRONG><a name="[e9]"></a>manage_mode_enable</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, main.o(i.manage_mode_enable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = manage_mode_enable &rArr; __2printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
@@ -1253,7 +1259,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteDat
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
+<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vOledTask
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
@@ -1261,15 +1267,15 @@ Global Symbols
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
 </UL>
 
-<P><STRONG><a name="[dd]"></a>oled_init</STRONG> (Thumb, 250 bytes, Stack size 16 bytes, oled.o(i.oled_init))
+<P><STRONG><a name="[de]"></a>oled_init</STRONG> (Thumb, 250 bytes, Stack size 16 bytes, oled.o(i.oled_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = oled_init &rArr; oled_clear &rArr; OLED_WriteDat &rArr; I2C_WriteByte &rArr; I2C_WaitAck &rArr; delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_probe_addr
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_probe_addr
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteCmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1288,32 +1294,32 @@ Global Symbols
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
 </UL>
 
-<P><STRONG><a name="[ea]"></a>parse_bl_cmd</STRONG> (Thumb, 200 bytes, Stack size 80 bytes, uart.o(i.parse_bl_cmd))
+<P><STRONG><a name="[eb]"></a>parse_bl_cmd</STRONG> (Thumb, 200 bytes, Stack size 80 bytes, uart.o(i.parse_bl_cmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = parse_bl_cmd &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUartCmdTask
 </UL>
 
-<P><STRONG><a name="[ec]"></a>parse_cmd</STRONG> (Thumb, 688 bytes, Stack size 16 bytes, uart.o(i.parse_cmd))
+<P><STRONG><a name="[ed]"></a>parse_cmd</STRONG> (Thumb, 688 bytes, Stack size 16 bytes, uart.o(i.parse_cmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = parse_cmd &rArr; wifi_auto_connect &rArr; wifi_wait_response &rArr; wifi_find_str &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_puts
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_puts
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_puts
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_card_uid
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_card_uid
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUartCmdTask
@@ -1322,8 +1328,8 @@ Global Symbols
 <P><STRONG><a name="[116]"></a>pvPortMalloc</STRONG> (Thumb, 296 bytes, Stack size 24 bytes, heap_4.o(i.pvPortMalloc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
+<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInsertBlockIntoFreeList
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvHeapInit
 </UL>
@@ -1339,12 +1345,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseNewTask
 </UL>
 
-<P><STRONG><a name="[de]"></a>rc522_init</STRONG> (Thumb, 212 bytes, Stack size 16 bytes, rc522.o(i.rc522_init))
+<P><STRONG><a name="[df]"></a>rc522_init</STRONG> (Thumb, 212 bytes, Stack size 16 bytes, rc522.o(i.rc522_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = rc522_init &rArr; RC522_AntennaOn &rArr; RC522_SetBitMask &rArr; RC522_WriteReg &rArr; SPI_RW &rArr; spi_delay
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_delay_ms
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_WriteReg
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_Reset
@@ -1366,14 +1372,14 @@ Global Symbols
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 </UL>
 
-<P><STRONG><a name="[df]"></a>uart1_init</STRONG> (Thumb, 208 bytes, Stack size 40 bytes, uart.o(i.uart1_init))
+<P><STRONG><a name="[e0]"></a>uart1_init</STRONG> (Thumb, 208 bytes, Stack size 40 bytes, uart.o(i.uart1_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = uart1_init &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
@@ -1381,13 +1387,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e0]"></a>uart2_init</STRONG> (Thumb, 126 bytes, Stack size 32 bytes, uart.o(i.uart2_init))
+<P><STRONG><a name="[e1]"></a>uart2_init</STRONG> (Thumb, 126 bytes, Stack size 32 bytes, uart.o(i.uart2_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = uart2_init &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
 </UL>
@@ -1397,8 +1403,8 @@ Global Symbols
 <P><STRONG><a name="[120]"></a>uart2_putc</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, uart.o(i.uart2_putc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = uart2_putc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_puts
 </UL>
@@ -1408,17 +1414,17 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
 </UL>
 
-<P><STRONG><a name="[e1]"></a>uart3_init</STRONG> (Thumb, 170 bytes, Stack size 40 bytes, uart.o(i.uart3_init))
+<P><STRONG><a name="[e2]"></a>uart3_init</STRONG> (Thumb, 170 bytes, Stack size 40 bytes, uart.o(i.uart3_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = uart3_init &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
@@ -1426,32 +1432,32 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ed]"></a>uart3_putc</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, uart.o(i.uart3_putc))
+<P><STRONG><a name="[ee]"></a>uart3_putc</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, uart.o(i.uart3_putc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = uart3_putc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
 </UL>
 <BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_notify
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_puts
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_puts
 </UL>
 
-<P><STRONG><a name="[ee]"></a>uart3_puts</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, uart.o(i.uart3_puts))
+<P><STRONG><a name="[ef]"></a>uart3_puts</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, uart.o(i.uart3_puts))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = uart3_puts &rArr; uart3_putc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
+<BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_notify
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
 </UL>
 
 <P><STRONG><a name="[f2]"></a>uxListRemove</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, list.o(i.uxListRemove))
-<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR><BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvSwitchTimerLists
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessReceivedCommands
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessExpiredTimer
@@ -1467,47 +1473,46 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = vFingerTask &rArr; as608_search_finger &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
-<P><STRONG><a name="[65]"></a>vKeyMenuTask</STRONG> (Thumb, 2186 bytes, Stack size 40 bytes, main.o(i.vKeyMenuTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = vKeyMenuTask &rArr; oled_show_string &rArr; OLED_WriteDat &rArr; I2C_WriteByte &rArr; I2C_WaitAck &rArr; delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<P><STRONG><a name="[65]"></a>vKeyMenuTask</STRONG> (Thumb, 2088 bytes, Stack size 48 bytes, main.o(i.vKeyMenuTask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = vKeyMenuTask &rArr; oled_show_string &rArr; OLED_WriteDat &rArr; I2C_WriteByte &rArr; I2C_WaitAck &rArr; delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_admin_password
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_enable
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_enable
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_feedback
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_enable
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_enable
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_feedback
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
-<P><STRONG><a name="[64]"></a>vKeyTask</STRONG> (Thumb, 204 bytes, Stack size 8 bytes, main.o(i.vKeyTask))
+<P><STRONG><a name="[64]"></a>vKeyTask</STRONG> (Thumb, 142 bytes, Stack size 8 bytes, main.o(i.vKeyTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = vKeyTask &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
@@ -1531,10 +1536,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f3]"></a>vListInsertEnd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, list.o(i.vListInsertEnd))
-<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR><BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddNewTaskToReadyList
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
@@ -1544,29 +1549,30 @@ Global Symbols
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 </UL>
 
-<P><STRONG><a name="[6a]"></a>vManageTask</STRONG> (Thumb, 2204 bytes, Stack size 80 bytes, main.o(i.vManageTask))
+<P><STRONG><a name="[6a]"></a>vManageTask</STRONG> (Thumb, 2252 bytes, Stack size 80 bytes, main.o(i.vManageTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = vManageTask &rArr; as608_enroll_finger &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_notify
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_read_card
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_password
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_card
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_password
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_card
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_feedback
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_password
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_card
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_password
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_card
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_feedback
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
@@ -1575,7 +1581,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
 </UL>
@@ -1584,11 +1590,11 @@ Global Symbols
 <P><STRONG><a name="[ab]"></a>vPortEnterCritical</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, port.o(i.vPortEnterCritical))
 <BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckForValidListAndQueue
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddNewTaskToReadyList
@@ -1603,11 +1609,11 @@ Global Symbols
 <P><STRONG><a name="[ad]"></a>vPortExitCritical</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, port.o(i.vPortExitCritical))
 <BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckForValidListAndQueue
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddNewTaskToReadyList
@@ -1622,8 +1628,8 @@ Global Symbols
 <P><STRONG><a name="[100]"></a>vPortFree</STRONG> (Thumb, 140 bytes, Stack size 16 bytes, heap_4.o(i.vPortFree))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
+<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInsertBlockIntoFreeList
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
@@ -1643,21 +1649,21 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSendFromISR
 </UL>
 
-<P><STRONG><a name="[63]"></a>vPwdTask</STRONG> (Thumb, 436 bytes, Stack size 32 bytes, main.o(i.vPwdTask))
+<P><STRONG><a name="[63]"></a>vPwdTask</STRONG> (Thumb, 336 bytes, Stack size 32 bytes, main.o(i.vPwdTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = vPwdTask &rArr; oled_show_string &rArr; OLED_WriteDat &rArr; I2C_WriteByte &rArr; I2C_WaitAck &rArr; delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
@@ -1676,29 +1682,30 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessTimerOrBlockTask
 </UL>
 
-<P><STRONG><a name="[67]"></a>vRfidTask</STRONG> (Thumb, 226 bytes, Stack size 16 bytes, main.o(i.vRfidTask))
+<P><STRONG><a name="[67]"></a>vRfidTask</STRONG> (Thumb, 202 bytes, Stack size 16 bytes, main.o(i.vRfidTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = vRfidTask &rArr; rc522_read_card &rArr; RC522_Request &rArr; RC522_ToCard &rArr; RC522_SetBitMask &rArr; RC522_WriteReg &rArr; SPI_RW &rArr; spi_delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_read_card
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
-<P><STRONG><a name="[b9]"></a>vTaskDelay</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, tasks.o(i.vTaskDelay))
+<P><STRONG><a name="[ba]"></a>vTaskDelay</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, tasks.o(i.vTaskDelay))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
+<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUartCmdTask
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
@@ -1708,11 +1715,10 @@ Global Symbols
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyTask
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_find_str
 </UL>
 
-<P><STRONG><a name="[b2]"></a>vTaskDelete</STRONG> (Thumb, 202 bytes, Stack size 16 bytes, tasks.o(i.vTaskDelete))
+<P><STRONG><a name="[b3]"></a>vTaskDelete</STRONG> (Thumb, 202 bytes, Stack size 16 bytes, tasks.o(i.vTaskDelete))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = vTaskDelete &rArr; prvDeleteTCB &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
@@ -1757,7 +1763,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 </UL>
 
-<P><STRONG><a name="[d1]"></a>vTaskResume</STRONG> (Thumb, 128 bytes, Stack size 16 bytes, tasks.o(i.vTaskResume))
+<P><STRONG><a name="[d2]"></a>vTaskResume</STRONG> (Thumb, 128 bytes, Stack size 16 bytes, tasks.o(i.vTaskResume))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = vTaskResume &rArr; prvTaskIsTaskSuspended
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
@@ -1767,8 +1773,8 @@ Global Symbols
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 </UL>
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_disable
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_disable
 </UL>
 
 <P><STRONG><a name="[137]"></a>vTaskSetTimeOutState</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, tasks.o(i.vTaskSetTimeOutState))
@@ -1777,7 +1783,7 @@ Global Symbols
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 </UL>
 
-<P><STRONG><a name="[e6]"></a>vTaskStartScheduler</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, tasks.o(i.vTaskStartScheduler))
+<P><STRONG><a name="[e7]"></a>vTaskStartScheduler</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, tasks.o(i.vTaskStartScheduler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = vTaskStartScheduler &rArr; xTimerCreateTimerTask &rArr; xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
@@ -1787,7 +1793,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d3]"></a>vTaskSuspend</STRONG> (Thumb, 196 bytes, Stack size 16 bytes, tasks.o(i.vTaskSuspend))
+<P><STRONG><a name="[d4]"></a>vTaskSuspend</STRONG> (Thumb, 196 bytes, Stack size 16 bytes, tasks.o(i.vTaskSuspend))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = vTaskSuspend
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
@@ -1800,15 +1806,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_enable
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_enable
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manage_mode_enable
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_mode_enable
 </UL>
 
-<P><STRONG><a name="[c1]"></a>vTaskSuspendAll</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, tasks.o(i.vTaskSuspendAll))
+<P><STRONG><a name="[c2]"></a>vTaskSuspendAll</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, tasks.o(i.vTaskSuspendAll))
 <BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
@@ -1817,57 +1823,57 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[71]"></a>vTaskSwitchContext</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, tasks.o(i.vTaskSwitchContext))
-<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<BR><BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
 <LI><a href="#[8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PendSV_Handler
 </UL>
 
 <P><STRONG><a name="[68]"></a>vUartCmdTask</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, main.o(i.vUartCmdTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = vUartCmdTask &rArr; parse_cmd &rArr; wifi_auto_connect &rArr; wifi_wait_response &rArr; wifi_find_str &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
-<P><STRONG><a name="[69]"></a>vUnlockExecTask</STRONG> (Thumb, 510 bytes, Stack size 48 bytes, main.o(i.vUnlockExecTask))
+<P><STRONG><a name="[69]"></a>vUnlockExecTask</STRONG> (Thumb, 464 bytes, Stack size 48 bytes, main.o(i.vUnlockExecTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = vUnlockExecTask &rArr; as608_search_finger &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
 <BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_read_card
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password_count
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_password
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card_count
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_get_card
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.app_task_init)
 </UL>
-<P><STRONG><a name="[ef]"></a>wifi_auto_connect</STRONG> (Thumb, 1602 bytes, Stack size 272 bytes, uart.o(i.wifi_auto_connect))
+<P><STRONG><a name="[b2]"></a>wifi_auto_connect</STRONG> (Thumb, 1602 bytes, Stack size 272 bytes, uart.o(i.wifi_auto_connect))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = wifi_auto_connect &rArr; wifi_wait_response &rArr; wifi_find_str &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_puts
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_puts
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_wait_response
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_clear_buf
 <LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
 </UL>
 
 <P><STRONG><a name="[124]"></a>wifi_notify</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, uart.o(i.wifi_notify))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = wifi_notify &rArr; __2printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_puts
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
+<BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_puts
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3_putc
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
@@ -1880,7 +1886,7 @@ Global Symbols
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___6_port_c_39a90d8d__prvEnableVFP
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___6_port_c_39a90d8d__prvStartFirstTask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
+<BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 </UL>
 
 <P><STRONG><a name="[aa]"></a>xQueueCreateMutex</STRONG> (Thumb, 34 bytes, Stack size 24 bytes, queue.o(i.xQueueCreateMutex))
@@ -1909,8 +1915,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetSchedulerState
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
@@ -1921,9 +1927,9 @@ Global Symbols
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueEmpty
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataFromQueue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
@@ -1931,8 +1937,8 @@ Global Symbols
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vManageTask
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessReceivedCommands
 </UL>
 
@@ -1953,8 +1959,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetSchedulerState
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
@@ -1963,11 +1969,11 @@ Global Symbols
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
+<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_cmd
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_bl_cmd
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vUnlockExecTask
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vRfidTask
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPwdTask
@@ -1977,8 +1983,8 @@ Global Symbols
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vKeyMenuTask
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vFingerTask
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTimerGenericCommand
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseMutex
 </UL>
@@ -2012,7 +2018,7 @@ Global Symbols
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseNewTask
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddNewTaskToReadyList
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
+<BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_task_init
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTimerCreateTimerTask
@@ -2036,7 +2042,7 @@ Global Symbols
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
@@ -2062,7 +2068,7 @@ Global Symbols
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 </UL>
 
-<P><STRONG><a name="[c2]"></a>xTaskResumeAll</STRONG> (Thumb, 224 bytes, Stack size 16 bytes, tasks.o(i.xTaskResumeAll))
+<P><STRONG><a name="[c3]"></a>xTaskResumeAll</STRONG> (Thumb, 224 bytes, Stack size 16 bytes, tasks.o(i.xTaskResumeAll))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
@@ -2074,8 +2080,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
@@ -2089,7 +2095,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckForValidListAndQueue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
+<BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 </UL>
 
 <P><STRONG><a name="[10b]"></a>xTimerGenericCommand</STRONG> (Thumb, 126 bytes, Stack size 40 bytes, timers.o(i.xTimerGenericCommand))
@@ -2114,7 +2120,7 @@ Local Symbols
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_probe_addr
+<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_probe_addr
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteDat
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteCmd
 </UL>
@@ -2126,7 +2132,7 @@ Local Symbols
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_probe_addr
+<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_probe_addr
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteDat
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteCmd
 </UL>
@@ -2151,7 +2157,7 @@ Local Symbols
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitAck
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_probe_addr
+<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_probe_addr
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteDat
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteCmd
 </UL>
@@ -2164,7 +2170,7 @@ Local Symbols
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_Start
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_show_string
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_clear
 </UL>
 
@@ -2187,14 +2193,14 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitAck
 </UL>
 
-<P><STRONG><a name="[e9]"></a>oled_probe_addr</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, oled.o(i.oled_probe_addr))
+<P><STRONG><a name="[ea]"></a>oled_probe_addr</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, oled.o(i.oled_probe_addr))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = oled_probe_addr &rArr; I2C_WriteByte &rArr; I2C_WaitAck &rArr; delay_us &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WriteByte
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_Stop
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_Start
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
+<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_init
 </UL>
 
 <P><STRONG><a name="[8b]"></a>RC522_AntennaOn</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, rc522.o(i.RC522_AntennaOn))
@@ -2203,7 +2209,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_SetBitMask
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_ReadReg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
 </UL>
 
 <P><STRONG><a name="[8e]"></a>RC522_Anticoll</STRONG> (Thumb, 68 bytes, Stack size 24 bytes, rc522.o(i.RC522_Anticoll))
@@ -2231,7 +2237,7 @@ Local Symbols
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_RW
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_ToCard
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_SetBitMask
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_ClearBitMask
@@ -2254,7 +2260,7 @@ Local Symbols
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_delay_ms
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
 </UL>
 
 <P><STRONG><a name="[8d]"></a>RC522_SetBitMask</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, rc522.o(i.RC522_SetBitMask))
@@ -2286,7 +2292,7 @@ Local Symbols
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_RW
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_ToCard
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_SetBitMask
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_Request
@@ -2309,7 +2315,7 @@ Local Symbols
 <P><STRONG><a name="[95]"></a>rc522_delay_ms</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, rc522.o(i.rc522_delay_ms))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = rc522_delay_ms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rc522_init
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC522_Reset
 </UL>
 
@@ -2319,64 +2325,62 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_RW
 </UL>
 
-<P><STRONG><a name="[b5]"></a>as608_receve_reply</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, as608.o(i.as608_receve_reply))
+<P><STRONG><a name="[bb]"></a>as608_receve_reply</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, as608.o(i.as608_receve_reply))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = as608_receve_reply
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ReceiveData
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
 </UL>
-<BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
 </UL>
 
-<P><STRONG><a name="[b4]"></a>as608_send_cmd</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, as608.o(i.as608_send_cmd))
+<P><STRONG><a name="[b6]"></a>as608_send_cmd</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, as608.o(i.as608_send_cmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = as608_send_cmd
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
 </UL>
-<BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_search_finger
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_enroll_finger
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_delete_finger
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_handshake
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;as608_clear_all
 </UL>
 
-<P><STRONG><a name="[d9]"></a>read_col</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, keypad.o(i.read_col))
+<P><STRONG><a name="[da]"></a>read_col</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, keypad.o(i.read_col))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = read_col
 </UL>
 <BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
+<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
 </UL>
 
-<P><STRONG><a name="[d8]"></a>set_row_low</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, keypad.o(i.set_row_low))
+<P><STRONG><a name="[d9]"></a>set_row_low</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, keypad.o(i.set_row_low))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = set_row_low
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
+<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
 </UL>
 
-<P><STRONG><a name="[c4]"></a>flash_save_all</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, flash.o(i.flash_save_all))
+<P><STRONG><a name="[c5]"></a>flash_save_all</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, flash.o(i.flash_save_all))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = flash_save_all &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_Unlock
+<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_Unlock
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_ProgramWord
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_Lock
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_Lock
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_EraseSector
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_ClearFlag
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_ClearFlag
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_password
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_card
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_password
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_card
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_card_uid
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_init
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_password
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_delete_card
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_password
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_add_card
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_save_card_uid
 </UL>
 
 <P><STRONG><a name="[12e]"></a>wifi_clear_buf</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, uart.o(i.wifi_clear_buf))
@@ -2384,14 +2388,14 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
 </UL>
 
 <P><STRONG><a name="[131]"></a>wifi_find_str</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, uart.o(i.wifi_find_str))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = wifi_find_str &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_wait_response
 </UL>
@@ -2402,7 +2406,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_find_str
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_auto_connect
 </UL>
 
 <P><STRONG><a name="[117]"></a>prvHeapInit</STRONG> (Thumb, 98 bytes, Stack size 12 bytes, heap_4.o(i.prvHeapInit))
@@ -2493,7 +2497,7 @@ Local Symbols
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsert
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventListRestricted
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 </UL>
@@ -2514,8 +2518,8 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvDeleteTCB
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 </UL>
@@ -2527,7 +2531,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 </UL>
 
@@ -2557,16 +2561,16 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[128]"></a>prvResetNextTaskUnblockTime</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, tasks.o(i.prvResetNextTaskUnblockTime))
-<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR><BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspend
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 </UL>
 
 <P><STRONG><a name="[12b]"></a>prvTaskIsTaskSuspended</STRONG> (Thumb, 80 bytes, Stack size 8 bytes, tasks.o(i.prvTaskIsTaskSuspended))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = prvTaskIsTaskSuspended
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
+<BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskResume
 </UL>
 
 <P><STRONG><a name="[f7]"></a>prvCheckForValidListAndQueue</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, timers.o(i.prvCheckForValidListAndQueue))
@@ -2620,8 +2624,8 @@ Local Symbols
 <P><STRONG><a name="[10e]"></a>prvProcessTimerOrBlockTask</STRONG> (Thumb, 102 bytes, Stack size 24 bytes, timers.o(i.prvProcessTimerOrBlockTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = prvProcessTimerOrBlockTask &rArr; prvSampleTimeNow &rArr; prvSwitchTimerLists &rArr; xTimerGenericCommand &rArr; xQueueGenericSend &rArr; vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
+<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvSampleTimeNow
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessExpiredTimer
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vQueueWaitForMessageRestricted

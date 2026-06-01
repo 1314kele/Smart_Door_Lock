@@ -26,24 +26,16 @@ Project File Date:  05/27/2026
 
 <h2>Output:</h2>
 Build target 'template'
-compiling main.c...
-USER\main.c(245): warning:  #550-D: variable "selected_item" was set but never used
-      uint8_t selected_item = 0;
-USER\main.c(247): warning:  #177-D: variable "unlock_req" was declared but never referenced
-      UnlockRequest unlock_req;
-USER\main.c(248): warning:  #177-D: variable "unlock_result" was declared but never referenced
-      UnlockResult unlock_result;
-USER\main.c(1208): warning:  #1-D: last line of file ends without a newline
-  }
-USER\main.c: 4 warnings, 0 errors
-compiling uart.c...
-SYSTEM\uart.c(352): warning:  #177-D: function "wifi_send_at" was declared but never referenced
-  static void wifi_send_at(char *str)
-SYSTEM\uart.c: 1 warning, 0 errors
+compiling as608.c...
+HARDWARE\as608.c(267): warning:  #223-D: function "vTaskDelay" declared implicitly
+          vTaskDelay(pdMS_TO_TICKS(200));  // 200ms间隔轮询
+HARDWARE\as608.c(284): warning:  #223-D: function "vTaskDelay" declared implicitly
+      vTaskDelay(pdMS_TO_TICKS(1000));  // 等待用户移开手指
+HARDWARE\as608.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=34008 RO-data=2260 RW-data=376 ZI-data=78544  
+Program Size: Code=33400 RO-data=2056 RW-data=376 ZI-data=78544  
 FromELF: creating hex file...
-".\template.axf" - 0 Error(s), 5 Warning(s).
+".\template.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -55,16 +47,16 @@ Package Vendor: ARM
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.STM32F4xx_DFP.1.0.8.pack
-                Keil::Device:Startup:1.3.1
+                Keil::Device:StdPeriph Drivers:Framework:1.3.1
                 STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+   * Component: Framework Version: 1.3.1
    * Component: Startup Version: 1.3.1
    * Component: EXTI Version: 1.3.0
-   * Component: Framework Version: 1.3.1
    * Component: TIM Version: 1.3.0
    * Component: Flash Version: 1.3.0
-   * Component: GPIO Version: 1.3.0
-   * Component: SYSCFG Version: 1.3.0
    * Component: USART Version: 1.3.0
+   * Component: SYSCFG Version: 1.3.0
+   * Component: GPIO Version: 1.3.0
    * Component: RCC Version: 1.3.0
 
 <h2>Collection of Component include folders:</h2>
@@ -79,43 +71,43 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:3.40.0
       Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
 
+   * Component: Keil::Device:StdPeriph Drivers:Framework:1.3.1
+      Source file:   Device\StdPeriph_Driver\templates\stm32f4xx_conf.h
+      Include file:  Device\StdPeriph_Driver\templates\stm32f4xx_it.h
+      Source file:   Device\StdPeriph_Driver\templates\stm32f4xx_it.c
+      Source file:   Device\StdPeriph_Driver\src\misc.c
+
    * Component: Keil::Device:Startup:1.3.1
-      Include file:  Device\Include\stm32f4xx.h
-      Source file:   Device\Source\ARM\STM32F4xx_OTP.s
       Source file:   Device\Source\system_stm32f4xx.c
-      Source file:   Device\Source\ARM\startup_stm32f40_41xxx.s
       Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
+      Source file:   Device\Source\ARM\STM32F4xx_OTP.s
+      Source file:   Device\Source\ARM\startup_stm32f40_41xxx.s
+      Include file:  Device\Include\stm32f4xx.h
 
    * Component: Keil::Device:StdPeriph Drivers:EXTI:1.3.0
       Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_exti.h
       Source file:   Device\StdPeriph_Driver\src\stm32f4xx_exti.c
 
-   * Component: Keil::Device:StdPeriph Drivers:Framework:1.3.1
-      Include file:  Device\StdPeriph_Driver\templates\stm32f4xx_it.h
-      Source file:   Device\StdPeriph_Driver\templates\stm32f4xx_it.c
-      Source file:   Device\StdPeriph_Driver\src\misc.c
-      Source file:   Device\StdPeriph_Driver\templates\stm32f4xx_conf.h
-
    * Component: Keil::Device:StdPeriph Drivers:TIM:1.3.0
-      Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_tim.h
       Source file:   Device\StdPeriph_Driver\src\stm32f4xx_tim.c
+      Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_tim.h
 
    * Component: Keil::Device:StdPeriph Drivers:Flash:1.3.0
-      Source file:   Device\StdPeriph_Driver\src\stm32f4xx_flash.c
       Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_flash.h
+      Source file:   Device\StdPeriph_Driver\src\stm32f4xx_flash.c
 
-   * Component: Keil::Device:StdPeriph Drivers:GPIO:1.3.0
-      Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_gpio.h
-      Source file:   Device\StdPeriph_Driver\src\stm32f4xx_gpio.c
+   * Component: Keil::Device:StdPeriph Drivers:USART:1.3.0
+      Source file:   Device\StdPeriph_Driver\src\stm32f4xx_usart.c
+      Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_usart.h
 
    * Component: Keil::Device:StdPeriph Drivers:SYSCFG:1.3.0
       Source file:   Device\StdPeriph_Driver\src\stm32f4xx_syscfg.c
       Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_syscfg.h
 
-   * Component: Keil::Device:StdPeriph Drivers:USART:1.3.0
-      Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_usart.h
-      Source file:   Device\StdPeriph_Driver\src\stm32f4xx_usart.c
+   * Component: Keil::Device:StdPeriph Drivers:GPIO:1.3.0
+      Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_gpio.h
+      Source file:   Device\StdPeriph_Driver\src\stm32f4xx_gpio.c
 
    * Component: Keil::Device:StdPeriph Drivers:RCC:1.3.0
       Include file:  Device\StdPeriph_Driver\inc\stm32f4xx_rcc.h

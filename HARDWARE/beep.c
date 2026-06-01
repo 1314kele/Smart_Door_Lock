@@ -20,3 +20,4 @@ void beep_init(void)
 	//3.默认低电平
 	GPIO_ResetBits(GPIOF,GPIO_Pin_8);
 }
+    

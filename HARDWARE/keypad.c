@@ -51,7 +51,7 @@ void keypad_init(void)
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8; // PA8
     GPIO_Init(GPIOA, &GPIO_InitStructure);
     
-    // 我们在此帮您指定列线 4 为 PA4
+    // 指定列线 4 为 PA4
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
     
@@ -81,6 +81,7 @@ static int read_col(int col) {
     return 1;
 }
 
+//扫描键盘
 uint8_t keypad_scan(void)
 {
     char keymap[4][4] = {
@@ -90,14 +91,23 @@ uint8_t keypad_scan(void)
         {'*','0','#','D'}
     };
     int r, c;
+    uint8_t key_detected = 0;
+    
     for(r = 0; r < 4; r++) {
         set_row_low(r);
+        delay_ms(5);
+        
         for(c = 0; c < 4; c++) {
             if(read_col(c) == Bit_RESET) {
-                delay_ms(15);
+                delay_ms(20);
                 if(read_col(c) == Bit_RESET) {
-                    while(read_col(c) == Bit_RESET);
-                    return keymap[r][c];
+                    delay_ms(20);
+                    if(read_col(c) == Bit_RESET) {
+                        key_detected = keymap[r][c];
+                        while(read_col(c) == Bit_RESET);
+                        delay_ms(30);
+                        return key_detected;
+                    }
                 }
             }
         }
