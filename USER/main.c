@@ -377,7 +377,7 @@ void app_task_init(void* pvParameters)
     
     // 7. 自动初始化WiFi连接
     wifi_auto_connect();
-    
+    as608_clear_all();
     // 8. 删除初始化任务（已完成使命）
     vTaskDelete(NULL);
 }
@@ -921,22 +921,12 @@ void vManageTask(void* pvParameters)
                             oled_show_string(0, 0, "Delete? 1=Yes");
                             xSemaphoreGive(oledMutex);
                         }
-                        // 清空队列中残留的按键
-                        {
-                            char dummy;
-                            while(xQueueReceive(manageQueue, &dummy, 0) == pdTRUE);
-                        }
-                        // 等待用户确认
                         if(xQueueReceive(manageQueue, &confirm_key, pdMS_TO_TICKS(5000)) == pdTRUE) {
                             if(confirm_key == '1') {
                                 switch(current_manage_menu) {
                                     case MENU_MANAGE_FINGER:
-                                        printf("[Manage] Deleting finger ID=%d\r\n", selected_index);
-                                        if(as608_delete_finger(selected_index)) {
-                                            wifi_notify("FINGER:DELETE:SUCCESS");
-                                        } else {
-                                            printf("[Manage] Delete finger failed!\r\n");
-                                        }
+                                        as608_delete_finger(selected_index);
+                                        wifi_notify("FINGER:DELETE:SUCCESS");
                                         break;
                                     case MENU_MANAGE_PWD:
                                         flash_delete_password(selected_index);
@@ -956,11 +946,8 @@ void vManageTask(void* pvParameters)
                                     xSemaphoreGive(oledMutex);
                                 }
                             }
-                        } else {
-                            // 超时，返回子菜单
-                            printf("[Manage] Delete timeout, returning...\r\n");
+                            vTaskDelay(pdMS_TO_TICKS(500));
                         }
-                        vTaskDelay(pdMS_TO_TICKS(500));
                     }
                 } else if(key == '2') {
                     // 添加操作
@@ -994,25 +981,30 @@ void vManageTask(void* pvParameters)
                             selected_index++;
                         }
                     } else {
-                        if(selected_index < max_items - 1) {
+                        if(selected_index < (max_items > 0 ? max_items - 1 : 0)) {
                             selected_index++;
                         }
                     }
-                } else if(key >= '1' && key <= '9') {
-                    // 直接选择数字1-9
+                } else if(key == '5') {
+                    // 向上翻5个 (针对更多指纹)
+                    if(selected_index >= 5) selected_index -= 5;
+                    else selected_index = 0;
+                } else if(key == '6') {
+                    // 向下翻5个
+                    if(current_manage_menu == MENU_MANAGE_FINGER) {
+                        if(selected_index <= 4) selected_index += 5;
+                        else selected_index = 9;
+                    } else {
+                        if(selected_index + 5 < max_items) selected_index += 5;
+                        else selected_index = max_items > 0 ? max_items - 1 : 0;
+                    }
+                } else if(key >= '7' && key <= '9') {
+                    // 快速选择 7, 8, 9
                     idx = key - '1';
                     if(current_manage_menu == MENU_MANAGE_FINGER) {
-                        if(idx < 10) {
-                            selected_index = idx;
-                        }
-                    } else if(current_manage_menu == MENU_MANAGE_PWD) {
-                        if(idx < max_items) {
-                            selected_index = idx;
-                        }
-                    } else if(current_manage_menu == MENU_MANAGE_RFID) {
-                        if(idx < max_items) {
-                            selected_index = idx;
-                        }
+                        selected_index = idx;
+                    } else if(idx < max_items) {
+                        selected_index = idx;
                     }
                 }
             }

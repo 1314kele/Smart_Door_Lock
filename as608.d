@@ -28,5 +28,7 @@
 .\as608.o: .\FreeRTOS\include\deprecated_definitions.h
 .\as608.o: .\FreeRTOS\portmacro.h
 .\as608.o: .\FreeRTOS\include\mpu_wrappers.h
+.\as608.o: .\FreeRTOS\include\task.h
+.\as608.o: .\FreeRTOS\include\list.h
 .\as608.o: .\FreeRTOS\include\semphr.h
 .\as608.o: .\FreeRTOS\include\queue.h

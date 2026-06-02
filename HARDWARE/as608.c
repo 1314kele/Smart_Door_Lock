@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "FreeRTOS.h"
+#include "task.h"
 #include "semphr.h"
 
 /*
@@ -246,6 +247,7 @@ uint8_t as608_enroll_finger(uint16_t finger_id) {
     uint8_t cmd_store[]      = {0xEF,0x01,0xFF,0xFF,0xFF,0xFF,0x01,0x00,0x06,0x06,0x01,0x00,0x00,0x00,0x00}; // 保存
     uint8_t result = 0;
     uint16_t attempt = 0;
+    uint16_t sum = 0;
 
     // 获取互斥锁
     if(xSemaphoreTake(as608Mutex, portMAX_DELAY) != pdTRUE) {
@@ -258,7 +260,9 @@ uint8_t as608_enroll_finger(uint16_t finger_id) {
     // 构建保存命令：设置目标ID和计算校验和
     cmd_store[11] = (finger_id >> 8) & 0xFF;          // ID高字节
     cmd_store[12] = finger_id & 0xFF;                  // ID低字节
-    cmd_store[14] = 0x01 + 0x00 + 0x06 + 0x06 + 0x01 + cmd_store[11] + cmd_store[12];  // 校验和
+    sum = 0x01 + 0x00 + 0x06 + 0x06 + 0x01 + cmd_store[11] + cmd_store[12];
+    cmd_store[13] = (sum >> 8) & 0xFF;
+    cmd_store[14] = sum & 0xFF;
 
     // ========== 步骤1/4：获取第一幅指纹图像 ==========
     printf("[Enroll] ID=%d - Step 1/4: Place finger on sensor...\r\n", finger_id);
@@ -353,109 +357,58 @@ exit:
  * 删除指纹库中的所有指纹模板
  */
 void as608_clear_all(void) {
-    uint8_t reply[32];
+    uint8_t reply[16];
+    // 清空指纹库命令（0x0D）
     uint8_t cmd_empty[] = {0xEF,0x01,0xFF,0xFF,0xFF,0xFF,0x01,0x00,0x03,0x0D,0x00,0x11};
-    uint16_t i;
-    volatile uint32_t wait;
 
     if(xSemaphoreTake(as608Mutex, portMAX_DELAY) != pdTRUE) {
         printf("[Finger] Clear: failed to get mutex\r\n");
         return;
     }
     
-    // 发送前清空接收缓冲区
-    while(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == SET) {
-        (void)USART_ReceiveData(USART2);
-    }
-    
-    printf("[Finger] Clear cmd: ");
-    for(i = 0; i < 12; i++) {
-        printf("%02X ", cmd_empty[i]);
-    }
-    printf("\r\n");
-    
-    as608_send_cmd(cmd_empty, 12);
-    
-    // 等待处理
-    for(wait = 0; wait < 1000000; wait++);
-    
-    // 直接接收响应
-    i = 0;
-    for(wait = 0; wait < 2000000; wait++) {
-        if(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == SET) {
-            reply[i++] = USART_ReceiveData(USART2);
-            if(i >= 12) break;
-        }
-    }
-    
-    printf("[Finger] Clear reply (%d bytes): ", i);
-    for(wait = 0; wait < i; wait++) {
-        printf("%02X ", reply[wait]);
-    }
-    printf("\r\n");
-    
-    if(i >= 12 && reply[9] == 0x00) {
+    as608_send_cmd(cmd_empty, sizeof(cmd_empty));
+    if(as608_receve_reply(reply, 200, 12) >= 12 && reply[9] == 0x00) {
         printf("[Finger] All fingerprints cleared!\r\n");
     } else {
-        printf("[Finger] Clear fail! code=0x%02X\r\n", (i >= 12) ? reply[9] : 0xFF);
+        printf("[Finger] Clear fail: code=0x%02X\r\n", reply[9]);
     }
     
     xSemaphoreGive(as608Mutex);
 }
 
+/*
+ * 删除指定ID的指纹
+ * param: finger_id - 要删除的指纹ID（0-9）
+ * return: 1成功，0失败
+ */
 uint8_t as608_delete_finger(uint16_t finger_id) {
-    uint8_t reply[32];
-    uint8_t cmd_delete[] = {0xEF,0x01,0xFF,0xFF,0xFF,0xFF,0x01,0x00,0x06,0x0C,0x00,0x00,0x00,0x01,0x00};
+    uint8_t reply[16];
+    // 删除指纹命令（0x0C）
+    // 格式：[EF 01] [FF FF FF FF] [01] [00 07] [0C] [ID_H ID_L] [00 01] [Sum_H Sum_L]
+    uint8_t cmd_delete[] = {0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x07, 0x0C, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00};
     uint8_t result = 0;
-    uint16_t i;
-    volatile uint32_t wait;
+    uint16_t sum = 0;
     
     if(xSemaphoreTake(as608Mutex, portMAX_DELAY) != pdTRUE) {
         printf("[Delete] Failed to get mutex!\r\n");
         return 0;
     }
     
-    cmd_delete[10] = (uint8_t)((finger_id >> 8) & 0xFF);
-    cmd_delete[11] = (uint8_t)(finger_id & 0xFF);
-    cmd_delete[14] = 0x01 + 0x00 + 0x06 + 0x0C + cmd_delete[10] + cmd_delete[11] + 0x00 + 0x01;
+    // 设置要删除的指纹ID（PageID）
+    cmd_delete[10] = (finger_id >> 8) & 0xFF;
+    cmd_delete[11] = finger_id & 0xFF;
     
-    // 发送前清空接收缓冲区
-    while(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == SET) {
-        (void)USART_ReceiveData(USART2);
-    }
+    // 计算校验和：Sum = Type(01) + Len(0007) + Cmd(0C) + PageID + Number(0001)
+    sum = 0x01 + 0x00 + 0x07 + 0x0C + cmd_delete[10] + cmd_delete[11] + 0x00 + 0x01;
+    cmd_delete[14] = (sum >> 8) & 0xFF;
+    cmd_delete[15] = sum & 0xFF;
     
-    printf("[Delete] CMD: ");
-    for(i = 0; i < 15; i++) {
-        printf("%02X ", cmd_delete[i]);
-    }
-    printf("\r\n");
-    
-    // 发送删除命令
-    as608_send_cmd(cmd_delete, 15);
-    
-    // 等待AS608处理（忙等约50ms）
-    for(wait = 0; wait < 1000000; wait++);
-    
-    // 接收响应
-    i = 0;
-    for(wait = 0; wait < 2000000; wait++) {
-        if(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == SET) {
-            reply[i++] = USART_ReceiveData(USART2);
-            if(i >= 12) break;
-        }
-    }
-    
-    printf("[Delete] Reply (%d bytes): ", i);
-    for(wait = 0; wait < i; wait++) {
-        printf("%02X ", reply[wait]);
-    }
-    printf("\r\n");
-    
-    if(i >= 12 && reply[9] == 0x00) {
-        printf("[Delete] ID=%d deleted!\r\n", finger_id);
+    as608_send_cmd(cmd_delete, sizeof(cmd_delete));
+    if(as608_receve_reply(reply, 1000, 12) >= 12 && reply[9] == 0x00) {
+        printf("[Delete] Finger ID=%d deleted!\r\n", finger_id);
         result = 1;
     } else {
-        printf("[Delete] Failed! code=0x%02X\r\n", (i >= 12) ? reply[9] : 0xFF);
+        printf("[Delete] Fail! code=0x%02X\r\n", reply[9]);
     }
     
     xSemaphoreGive(as608Mutex);
